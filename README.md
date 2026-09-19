@@ -11,15 +11,10 @@ The agent never calls a generation API, uploads media, or writes production file
 
 | This repo **is** | This repo **is not** |
 |---|---|
-| Prompt composition skills for Seed-family models | A generation pipeline — no MCP server, no Ark CLI |
-| A review gate (`prompt-review`) for every generation-bound prompt | A renderer — no HTML/CSS/SVG, no HyperFrames |
-| Chat-first delivery of paste-ready prompt blocks | A 3D or assembly tool — no Blender; FFmpeg only for read-only analysis frame extraction |
-| Optional local prompt drafts under `projects/` | A production canvas — no `showcase.json`, no task registry |
-
-For the full generation pipeline, use the partner workspace
-[`byteplus-sa/ark-director`](https://github.com/byteplus-sa/ark-director),
-which pairs these same skills with the
-[`byteplus-sa/ark-mcp`](https://github.com/byteplus-sa/ark-mcp) server.
+| Prompt composition skills for Seed-family models | A generation pipeline — you generate by pasting the delivered prompts into the destination UI |
+| A review gate (`prompt-review`) for every generation-bound prompt | A renderer — static and motion graphics are out of scope |
+| Chat-first delivery of paste-ready prompt blocks | A 3D or assembly tool — 3D, compositing, and editing are out of scope |
+| Optional local prompt drafts under `projects/` | A production canvas — no stage machinery, no task registry |
 
 ## How it works
 
@@ -90,7 +85,7 @@ seed-prompt-studio/
 │   ├── contracts/                  # prompt-only policy, axes, descriptors, rule IDs
 │   └── skills/                     # 26 prompt-composition skills
 ├── .opencode/command/
-│   └── sync-skills.md              # /sync-skills — pull skill updates from ark-director
+│   └── sync-skills.md              # /sync-skills — pull skill updates from the upstream source
 └── projects/                       # local drafts (save-on-request; never a default Git staging target)
     └── <project-name>/
         ├── project.md              # optional brief
@@ -99,15 +94,9 @@ seed-prompt-studio/
 
 ## Maintenance
 
-The full pipeline in
-[`byteplus-sa/ark-director`](https://github.com/byteplus-sa/ark-director) is the
-source of truth for the shared skills. Run `/sync-skills` inside opencode to
-mirror the 25 allowlisted skill bundles and their referenced contracts into
-this repo; the local `template-factory` fork is never overwritten. The command
-reports changes and leaves them uncommitted for review. A scoped run —
-`/sync-skills seedance-prompt-25` — syncs one skill and skips the contracts.
-
-## Related repositories
-
-- [`byteplus-sa/ark-director`](https://github.com/byteplus-sa/ark-director) — full production workspace: MCP + Ark CLI generation, deterministic HTML graphics, HyperFrames, Blender, assembly, and the production canvas.
-- [`byteplus-sa/ark-mcp`](https://github.com/byteplus-sa/ark-mcp) — Model Context Protocol server for BytePlus ModelArk generation tools.
+Shared skills are maintained in an upstream source checkout. Run `/sync-skills`
+inside opencode to mirror the 25 allowlisted skill bundles into this repo; the
+local `template-factory` fork and all contracts are locally maintained and are
+never overwritten by a sync. The command reports changes and leaves them
+uncommitted for review. A scoped run — `/sync-skills seedance-prompt-25` —
+syncs one skill only.

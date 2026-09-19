@@ -33,7 +33,7 @@ The ordered reference list delivered beside the prompt must match the
 | location | `seedream-location-asset` | `loc_<id>` |
 | prop | `seedream-prompt` | `prop_<id>` |
 | invented or illustrative screen/card imagery | `seedream-prompt` | `screen_<id>` |
-| exact screen/UI, title card, poster, product layout, price/CTA, logo | Out of scope — hand back to the ark-director workspace | — |
+| exact screen/UI, title card, poster, product layout, price/CTA, logo | Out of scope in this workspace — say so | — |
 
 Bind the breakdown's flagged keyframe as `@Image 1` (image-to-image) where
 one exists.

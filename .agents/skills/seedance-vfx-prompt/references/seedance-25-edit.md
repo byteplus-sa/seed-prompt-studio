@@ -140,15 +140,15 @@ only identity, environment, and runtime:
 Keep the camera block to two moves — three or more reads as unstable in one
 continuous take.
 
-### Routing vs `audio-dubbing`
+### Routing vs overlay dubbing
 
 Two different techniques both change language — pick by whether the lips are
 visible:
 
-| Technique | Skill | Result |
+| Technique | Where | Result |
 |---|---|---|
 | Re-voice + **re-render lips** | `seedance-vfx-prompt` (2.5 audio edit, this section) | Video re-rendered; mouth re-animated to the new language. Use when the mouth is visible and lip-sync matters. |
-| Voice-clone + **overlay audio** | `audio-dubbing` (Seed Audio 1.0 TA2A) | Video frames untouched; cloned audio laid on top. Use when lips are off-screen or not the focus. |
+| Voice-clone + **overlay audio** | outside this workspace — overlay dubbing is not a prompt deliverable | Video frames untouched; cloned audio laid on top. Use when lips are off-screen or not the focus. |
 
 ### Content-safety note (copyright false positives on output)
 

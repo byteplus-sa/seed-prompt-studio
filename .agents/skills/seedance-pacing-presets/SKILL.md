@@ -16,7 +16,7 @@ description: >
 This skill maps a named pacing or rhythm preset into a timestamped
 **motion / cut / pacing block** for the Seedance 2.5 prompt, so the scene's
 rhythm — not just its content — is directed. It is a **prompt-composition-only**
-skill: it never calls MCP tools or the Ark API, and it never runs generation.
+skill: it never calls any tools and never runs generation.
 The base prompt grammar — the six-part formula, `At Ns` timestamp syntax, the
 bounce-speed-ramp technique contract, the audio bracket syntax `()<>{}【】`,
 and scene-staging rules — is defined in `seedance-prompt-25` and is **not
@@ -137,8 +137,8 @@ beat that lands (the crate impact), gives each ramp a timestamp and an end
 state, and stays within a natural 12-second duration. It composes with
 `seedance-prompt-25` scene staging for multi-stage scenes, with
 `seedance-camera-presets` for the camera treatment, and with
-`film-production` / `seedream-storyboard` when the scene needs an approved shot
-list before generation.
+`template-factory` storyboard prompts when the scene needs an approved shot
+list first; end-to-end production is out of scope in this workspace.
 
 ## Edge cases and guardrails
 
@@ -148,9 +148,9 @@ list before generation.
 - **Keep 1-2 camera moves per clip.** Pacing blocks describe timing, not camera
   gymnastics. Compose the camera treatment with `seedance-camera-presets` and
   keep simultaneous moves to at most two per clip.
-- **Pacing needs a shot list.** When the scene has multiple cuts, prefer
-  `seedream-storyboard` / `film-production` for the shot list rather than one
-  raw prompt. A montage without an ordered cut list lets the model cut or
+- **Pacing needs a shot list.** When the scene has multiple cuts, prefer an
+  approved shot list (storyboard prompts via `template-factory`) rather than
+  one raw prompt. A montage without an ordered cut list lets the model cut or
   reorder arbitrarily.
 - **30s single-pass or native extension only for continuous seamless motion.**
   Reserve them for a genuine single continuous take or audio-driven long

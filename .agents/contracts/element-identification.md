@@ -51,37 +51,27 @@ explicitly authorized. Unknown or unauthorized brands stay de-identified in
 analysis and may use placeholder descriptors until the user supplies or
 authorizes real identity.
 
-Acquired brand/product assets skip `prompt-review` and the default three-sample
-Seedream set because there is no generation-bound prompt. They still require
-local persistence, hashes, canvas listing, and explicit user selection or
-approval before dependent video use.
+Acquired brand/product assets skip `prompt-review` because there is no
+generation-bound prompt. They still require explicit user selection or
+approval before dependent prompts depend on them.
 
-## Deterministic and hybrid static graphics
+## Exact-graphics boundary
 
-Use `html-graphic-render` when exact words, typography, logo placement, UI,
-price/CTA treatment, safe areas, product order, or repeatable poster geometry
-carry the design. Store the editable HTML entrypoint and its local CSS/SVG
-dependencies beside the versioned PNG and
-record `source: deterministic_render`, `generation: deterministic_html`, local
-input and font hashes, canvas dimensions, background/alpha mode, renderer
-version, and output hash. Validate the record against the deterministic
-render-record schema maintained upstream in the ark-director workspace
-(`html-graphic-render/references/render-record.schema.json`).
+Exact copy, typography, logo placement, UI, price/CTA treatment, safe areas,
+product order, and repeatable poster geometry are **out of scope in this
+workspace**: deterministic HTML-entrypoint graphics are not a capability here.
+Treat such elements as out of scope instead of improvising a prompt, and do not
+ask the model to render them.
 
 Use Seedream for synthesized photography, characters, locations, illustration,
-materials, or expressive textures. For a hybrid, approve the generated or
-acquired text-free image first, bind its current hash as an input, and add all
-exact copy and graphic geometry deterministically. The upstream generated layer
-keeps its prompt/review/task evidence; the deterministic output keeps its render
-record.
-
-Deterministic graphics skip prompt-review, provider registration, and the
-three-sample image default. They still require exact-copy, font, overflow,
-dimension, alpha, thumbnail-legibility, canvas, provenance, and explicit
-selection checks. If both a white-background model reference and transparent
-delivery cutout are needed, create and label separate files. Never globally
-remove white from a product image when that would erase labels, highlights, or
-internal white details.
+materials, or expressive textures. If a deliverable needs a generated base
+beneath exact copy and graphic geometry, the selected text-free image is the
+prompt deliverable and deterministic finishing happens outside this workspace;
+the generated layer keeps its prompt and review evidence here. If both a
+white-background model reference and transparent delivery cutout are needed,
+author and label them as separate prompts. Never globally remove white from a
+product image when that would erase labels, highlights, or internal white
+details.
 
 ## Reference footage and brand-ad inspiration
 

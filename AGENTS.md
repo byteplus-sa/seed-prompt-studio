@@ -7,11 +7,11 @@ prompts; it never generates, uploads, or persists media.
 ## Scope and authority
 
 This workspace produces copy-paste prompt blocks. The user pastes them into
-Lumina or another Seed-model UI. There is no MCP server, Ark CLI, generation
-transport, deterministic HTML renderer, HyperFrames, Blender, or assembly
-tooling here — those live in the ark-director workspace and are out of scope.
-Local `ffmpeg`/`ffprobe` are permitted for read-only analysis frame extraction
-only.
+Lumina or another Seed-model UI, where generation happens. There is no
+generation transport of any kind here — no model API access, no agent tool
+servers, no command-line generation. Deterministic rendering, 3D, and assembly
+capabilities are out of scope in this standalone workspace. Local
+`ffmpeg`/`ffprobe` are permitted for read-only analysis frame extraction only.
 
 Deliver prompts in chat by default. Save a draft under
 `projects/<name>/prompts/` only when the user explicitly asks.
@@ -67,11 +67,11 @@ specialists needed for the current request. `template-factory` is this
 workspace's declared orchestrator for reference-video reverse engineering; it
 sequences the prompt leaves and the `prompt-review` gate.
 
-This workspace ships prompt-composition skills only. Generation pipelines
-(film-production, seedance-vfx-pipeline, showcase-html, html-graphic-render,
-hyperframes, blender-*, ark-mcp, media-*) are not installed here; do not
-attempt their workflows. Local `ffmpeg`/`ffprobe` are analysis-only — never
-generation, assembly, or transcoding.
+This workspace ships prompt-composition skills only. Generation pipelines,
+deterministic-graphics renderers, 3D/animation tooling, and media-processing
+skills are not installed here; do not attempt their workflows. Local
+`ffmpeg`/`ffprobe` are analysis-only — never generation, assembly, or
+transcoding.
 
 Keep skill metadata concise and valid YAML. Move substantial conditional
 modes and examples into focused same-skill references.
@@ -98,8 +98,7 @@ modes and examples into focused same-skill references.
 - Moderation rejection is evidence to diagnose, not proof of a false
   positive. Revisions remain legitimate and authorized.
 - Exact-copy, typography, logo, UI, and deterministic HTML/CSS/SVG work is
-  out of scope; hand such requests back to the ark-director workspace rather
-  than improvising a prompt.
+  out of scope; say so rather than improvising a prompt.
 
 ## Local state and naming
 
@@ -129,7 +128,6 @@ never revert or discard work you did not create.
 `git diff --check`; this workspace ships no code, so unit, lint, type, and
 build checks are not applicable.
 
-Shared skills are maintained upstream in the ark-director workspace and pulled
-in with `/sync-skills` (see README Maintenance). The command never overwrites
-the local `template-factory` fork and leaves its changes uncommitted for
-review.
+Shared skills are maintained in an upstream source checkout and pulled in with
+`/sync-skills` (see README Maintenance). The command never overwrites the local
+`template-factory` fork and leaves its changes uncommitted for review.

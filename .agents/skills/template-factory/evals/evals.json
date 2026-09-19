@@ -42,11 +42,11 @@
     {
       "id": 4,
       "prompt": "The reference has a product end card with the exact logo and price. Include that in the prompts.",
-      "expected_output": "The factory states exact typography, logos, price, and CTA treatments are out of scope in this workspace and hands that element back to the ark-director workspace instead of improvising a prompt.",
+      "expected_output": "The factory states exact typography, logos, price, and CTA treatments are out of scope in this workspace and declines to improvise a prompt for that element.",
       "files": [],
       "assertions": [
         "No Seedream or Seedance prompt is authored to reproduce the exact logo, price, or CTA layout.",
-        "The out-of-scope element is explicitly handed back to the ark-director workspace.",
+        "The out-of-scope element is explicitly flagged as out of scope.",
         "The remaining prompt package still proceeds for the in-scope elements."
       ]
     },

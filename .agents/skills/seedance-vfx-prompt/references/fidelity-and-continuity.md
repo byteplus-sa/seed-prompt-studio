@@ -151,4 +151,4 @@ prior shot (Woman standing in @neon-alley). She turns and walks toward camera,
 > **Seedance 2.5 alternative**: For pure extension tasks (no VFX change, just
 > extending a clip), Seedance 2.5's native forward/backward extension can replace
 > the manual `return_last_frame` chaining above. Use `seedance-prompt-25` with
-> the 2.5 model (`dreamina-seedance-2-5-260628`) and `seedance_2_5_create_task`.
+> the 2.5 model (`dreamina-seedance-2-5-260628`).

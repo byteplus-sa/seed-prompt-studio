@@ -17,9 +17,9 @@ mode selection and caller responsibilities.
 | Seedance 2.0 Fast (legacy) | `dreamina-seedance-2-0-fast-260128` |
 | Seedance 2.0 Mini (legacy) | `dreamina-seedance-2-0-mini-260615` |
 
-**Submission boundary:** submit and poll through the caller's generation transport outside this workspace; every parameter in this reference is an API value, never prompt text.
+**Submission boundary:** this workspace writes prompts only — the user pastes the prompt and the parameter block into the destination UI. Every parameter in this reference is a submission value, never prompt text.
 
-> The model ID `dreamina-seedance-2-5-260628` is live on BytePlus ModelArk. Confirm the current ID on the [Model list](https://docs.byteplus.com/en/docs/ModelArk/1330310) before making API calls.
+> The model ID `dreamina-seedance-2-5-260628` is live on BytePlus ModelArk. Confirm the current ID on the [Model list](https://docs.byteplus.com/en/docs/ModelArk/1330310) before finalizing the parameter block.
 
 ### Reference limits
 

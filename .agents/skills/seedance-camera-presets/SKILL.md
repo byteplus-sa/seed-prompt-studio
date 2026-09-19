@@ -18,7 +18,7 @@ description: >
 This skill turns a named camera preset, movement style, or camera personality into a
 canonical, drop-in **Camera block** for the Seedance 2.5 six-part prompt formula
 (Subject + Action + Scene + Visual Style + Camera + Audio). It is a
-**prompt-composition-only** skill: it never calls MCP tools or the Ark API, and
+**prompt-composition-only** skill: it never calls any tools, and
 it never runs generation. The base prompt grammar — the six-part formula,
 `@Image N` / `@Video N` reference-role syntax, `At Ns` timestamp syntax, and
 audio bracket syntax — is defined in `seedance-prompt-25` and is **not

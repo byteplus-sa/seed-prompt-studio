@@ -66,4 +66,4 @@ allowed, flag it and say what to prioritize.
 > **Seedance 2.5 limits**: 2.5 raises these to 30 images / 10 videos / 10
 > audios and 30s generation duration. If your request exceeds the 2.0 limits
 > above, route to `seedance-prompt-25` and use the 2.5 model
-> (`dreamina-seedance-2-5-260628`) with `seedance_2_5_create_task`.
+> (`dreamina-seedance-2-5-260628`).

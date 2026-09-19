@@ -13,10 +13,9 @@ description: >
   user asks for motion design, motion graphics, kinetic typography, a logo
   reveal, product motion, an explainer video, an animated data story, or
   any text/graphic-driven marketing motion. Composes in prose with
-  html-graphic-render for exact static graphics, seedance-prompt-25 for the
-  six-part formula, seedream-prompt or seedream-storyboard for synthesized
-  image/keyframe layers, and seed-audio-prompt for voice/music. Does not call
-  the API itself.
+  seedance-prompt-25 for the six-part formula, seedream-prompt for synthesized
+  image/keyframe layers, and seed-audio-prompt for voice/music; exact static
+  graphics are out of scope in this workspace. Does not call any tools.
 ---
 
 # Seedance Motion Design
@@ -37,11 +36,12 @@ event openers, and title sequences.
 ## Core principle
 
 **Separate exact graphics from generated motion.** Seedance cannot reliably
-render or preserve readable text, numbers, charts, logos, or UI. Author exact
-copy and geometry as deterministic HTML-entrypoint graphics. Use Seedream only
+render or preserve readable text, numbers, charts, logos, or UI. Exact copy
+and geometry are out of scope in this workspace; deterministic finishing
+happens outside this workspace. Use Seedream only
 for synthesized visual layers such as illustration, photography, texture, or
-keyframes. Generate text-free Seedance footage, then animate/composite exact
-graphics in HyperFrames or FFmpeg. If the user intentionally accepts
+keyframes. Generate text-free Seedance footage; exact-graphic compositing
+happens in the destination workflow. If the user intentionally accepts
 model-driven plate motion, bind the selected plate explicitly and still inspect
 the result; image conditioning does not guarantee text fidelity.
 
@@ -123,8 +123,8 @@ screen, product, and keyframe, then route by fidelity:
   reference derivatives separate.
 - **Illustrative or photographic plates** → `seedream-prompt` without exact
   typography; select before deterministic finishing.
-- **Approved storyboard panels / keyframes** → `seedream-storyboard`, promoted
-  only after review.
+- **Approved storyboard panels / keyframes** → storyboard prompts via
+  `template-factory`, approved by the user before use.
 
 Generated or approved visual plates may become a `reference_image`,
 `first_frame`, or `last_frame` with a stable `@Image N` binding. Exact graphic
@@ -294,11 +294,9 @@ This skill is prompt-only. It **never calls generation tools.** It composes:
   first/last-frame and keyframe grammar, scene staging, timestamps, audio
   bracket syntax, and generation limitations. This skill references it, it does
   not re-implement it.
-- **`html-graphic-render`** — author exact text, UI, chart, logo,
-  product-layout, and overlay graphics for deterministic finishing.
-- **`seedream-prompt` / `seedream-storyboard`** — author synthesized
-  photographic, illustrative, texture, and keyframe plates. Do not ask them to
-  reproduce exact typography or layout that deterministic graphics own.
+- **`seedream-prompt`** — author synthesized
+  photographic, illustrative, texture, and keyframe plates. Do not ask it to
+  reproduce exact typography or layout; those are out of scope here.
 - **`seed-audio-prompt`** — voice and music for the piece, or the audio-first
   pipeline when the user requests lip-synced dialogue.
 - Axis presets (`seedance-camera-presets`, `seedance-lighting-presets`,
@@ -378,8 +376,8 @@ Before returning the prompt (and before any generation task), verify:
 7. **Reference discipline.** `@Image N` indices are stable, roles are stated,
    and the submitted array matches the bindings 1:1.
 8. **Composition respected.** The skill composes in prose with
-   `html-graphic-render`, `seedance-prompt-25`, `seedream-*`, and
-   `seed-audio-prompt`; it does not call generation tools.
+   `seedance-prompt-25`, `seedream-prompt`, and
+   `seed-audio-prompt`; it does not call any tools.
 9. **The design seal** is compact and does not contradict the treatment or the
    text-lock discipline.
 10. **The response contains the prompt**, not an unrelated production workflow.

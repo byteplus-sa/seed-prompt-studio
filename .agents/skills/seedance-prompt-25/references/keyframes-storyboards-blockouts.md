@@ -147,8 +147,8 @@ Use <materials, colors, and style>. Audio includes <ambience, sound effects, or 
 must drive the output frame for frame (camera, cuts, blocking, and timing), use
 this master mode instead of coarse/fine. The blockout is the sole authority for
 motion and placement; it never supplies appearance. For the end-to-end Blender
-build → previz render → submit flow, the `blender-to-seedance` pipeline skill
-covers the submission path.
+build → previz render → submit flow, only the prompt layer is authored here;
+the render itself is prepared outside this workspace.
 
 When the caller supplies a validated blockout manifest, treat it as the source
 for proxy-to-subject mappings, cut frames, action windows, and motion acceptance

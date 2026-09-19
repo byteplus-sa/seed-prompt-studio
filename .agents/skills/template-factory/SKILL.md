@@ -118,8 +118,7 @@ may be described in text inside the Seedance prompt.
 Bind the breakdown's flagged keyframe as `@Image 1` (image-to-image) where
 one exists. Exact typography, logos, UI, title cards, posters, product
 layouts, and price/CTA treatments are out of scope in this workspace — say so
-and hand that element back to the ark-director workspace instead of
-improvising a prompt.
+instead of improvising a prompt for that element.
 
 Present the element prompt set; the user approves it before storyboard and
 Seedance prompts depend on it.
@@ -175,7 +174,7 @@ URLs into the recipe.
 | Acting, camera, lens, lighting, pacing axes | `seedance-acting-console`, `seedance-{camera,lens,lighting,pacing}-presets` |
 | Grade sentence | `color-grade-palettes` |
 | Prompt quality gate | `prompt-review` |
-| Exact typography, UI, logo, poster, product layout | Out of scope — hand back to ark-director |
+| Exact typography, UI, logo, poster, product layout | Out of scope in this workspace — say so |
 
 ## Revisions
 

@@ -27,8 +27,8 @@ Use this skill when the user wants to:
   scratches, hairlines, streaks from aged film prints
 - **clean up** dust, dirt, flicker, and compression artifacts
 
-Do **not** use for deterministic VOD AI enhancement (`vod_enhance_video`) or
-FFmpeg denoisers — this skill is the Seedance generative-edit route. For the
+Do **not** use for deterministic VOD AI enhancement or classical denoiser
+filters — this skill is the Seedance generative-edit route. For the
 general edit grammar and the full six-part formula, compose with
 `seedance-prompt-25`; submission and the generation lifecycle belong to the
 caller outside this workspace.
@@ -40,8 +40,8 @@ caller outside this workspace.
 > a wave/ripple, a bright band) are the hardest case — even with correct
 > vocabulary they can be reproduced as "content" rather than erased. If residual
 > grain or lines remain after escalation, surface the deterministic alternative
-> (temporal denoiser + scratch-removal filters in FFmpeg) rather than promising
-> a generative fix.
+> (temporal denoise + scratch-removal filters, run outside this workspace)
+> rather than promising a generative fix.
 
 ## Input and output contract
 

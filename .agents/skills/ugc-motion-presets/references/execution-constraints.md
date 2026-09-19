@@ -85,7 +85,7 @@ Two supported paths:
   describe the screen or mirror image positively, or attach a deterministic
   mockup as `@Image N`; never expect a rendered UI.
 - **Labels and packaging (eating/product).** Exact text on plates, packaging,
-  and cups is a finishing layer (FFmpeg or HyperFrames), never baked into
+  and cups is added in post by the destination workflow, never baked into
   generation.
 - **Spatial continuity (action).** Name the start point, travel axis,
   boundary, and end state; never demand impossible movement frequencies.

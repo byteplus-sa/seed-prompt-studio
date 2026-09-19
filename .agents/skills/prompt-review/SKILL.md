@@ -36,8 +36,8 @@ Main agent writes/updates prompts
 - After revising a prompt based on generated output feedback.
 
 Do not trigger for:
-- Media review (project work uses its persistent `showcase-html` canvas; ad-hoc
-  files may use `showcase-html --quick`).
+- Generated-media viewing (this workspace delivers prompts only; outputs are
+  reviewed in the destination workflow).
 - Manifest or scene definition edits (those are production metadata, not prompts).
 - Prompts that have already been frozen as prompt snapshots unless the user explicitly
   asks to re-review a frozen snapshot.
@@ -82,7 +82,7 @@ Use explicit input first; filenames below are fallback hints, not authority:
 | Seedream prop sheet | `prompt_prop_*` | `seedream-prompt` (general image rules apply) |
 | Seedream screen UI reference | `prompt_screen_*` | `seedream-prompt` (general image rules apply) |
 | Seedream brand/title card | `prompt_card_*` | `seedream-prompt` (general image rules apply) |
-| Seedream storyboard | `prompt_sNN_kf*` (multi-panel) | `seedream-storyboard` |
+| Storyboard prompts | `prompt_sNN_kf*` (multi-panel) | `template-factory` (storyboard prompts) |
 | Seedance music video | `prompt_sNN_shNNN_tNN_vNN.md` (song-driven) | `seedance-music-video` |
 
 Deterministic HTML-entrypoint screens, cards, posters, product layouts, and
@@ -448,9 +448,9 @@ organized by prompt type with a table of contents at the top for quick navigatio
 ## Compose with other skills
 
 - After a production prompt passes, return its snapshot path, request hash,
-  reference bindings and review result to the caller. The caller must update and
-  regenerate the persistent `showcase-html` canvas before submission and again
-  after generated media arrives. `--quick` remains limited to ad-hoc files.
-- For end-to-end production coordination, `film-production` is the production manager.
+  reference bindings and review result to the caller. The caller freezes the
+  reviewed prompt and hands it off paste-ready; generated-media review happens
+  in the destination workflow.
+- For end-to-end production coordination, say so: it is out of scope in this workspace.
 - This skill is called by the main agent during prompt-writing work; it does not call
   generation tools itself.

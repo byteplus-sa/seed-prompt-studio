@@ -116,7 +116,7 @@ for deeper cue work. Camera is mostly locked front framing; audio is native.
 Category path: single-pass R2V with identity framing as a front-camera or
 mirror selfie. Describe phone-UI screens positively or omit them — never
 expect a rendered UI; see execution-constraints for the PiP guard. Locked
-demos use `camera_fixed: true` in the API call.
+demos use `camera_fixed: true` in the parameter block.
 
 ### Selfie <!-- id: selfie -->
 - Category: Selfie / posing

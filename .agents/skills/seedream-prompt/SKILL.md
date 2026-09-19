@@ -65,8 +65,9 @@ For character sheets, identity sheets, turnaround sheets, or Seedance-facing
 character references, prefer the sibling `seedream-character-sheet` skill rather
 than embedding that workflow here.
 
-If the generated character sheet later needs duplicate-face cleanup, optionally
-compose with the companion `seedream-character-sheet-cleanup` skill.
+If the generated character sheet later needs duplicate-face cleanup, regenerate
+it from a revised prompt; local image-edit tools are out of scope in this
+workspace.
 
 ## Deterministic graphic boundary
 

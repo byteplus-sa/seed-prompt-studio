@@ -25,8 +25,8 @@ spec. The console has two layers that work in sequence:
    observable physical cues at three intensity levels. The six-emotion bank is
    a lookup table for encoding, not a menu to pick from.
 
-This skill is **prompt-composition only**. It never calls MCP/Ark generation
-tools directly; it composes with `seedance-prompt-25` (prompt grammar) and
+This skill is **prompt-composition only**. It never calls any tools directly;
+it composes with `seedance-prompt-25` (prompt grammar) and
 optionally with `seed-audio-prompt` (Seed Audio voice profiles).
 
 ---

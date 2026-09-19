@@ -276,8 +276,8 @@ Example ASR-to-timeline conversion:
 
 After generation, verify that the output audio contains all expected lyrics:
 
-1. Extract the audio track from the generated video (`ffmpeg -vn`)
-2. Run speech recognition (ASR) on the extracted audio
+1. Have the user export the audio track from the generated video
+2. Run speech recognition (ASR) on the exported audio
 3. Compare the transcription against the expected lyrics
 4. Flag any missing, reordered, or garbled lines
 5. If lines are missing: use the timestamped lyric timeline technique
@@ -379,9 +379,9 @@ from drifting across the section chain and during later shots.
 This skill owns the music-video layer: format, song map, beat contract, audio
 contract, and genre lock. Other axes belong to their owning preset skills — see
 the canonical axis→skill table in `.agents/contracts/seedance-reference.md` (including
-`seed-audio-prompt` / `seed-audio-commercial` for an original music or vocal
-master, and `seedream-storyboard` / `film-production` for storyboard and
-multi-scene production). Never let two skills fight:
+`seed-audio-prompt` for an original music or vocal master, and `template-factory`
+for storyboard prompts; full multi-scene production is out of scope in this
+workspace). Never let two skills fight:
 
 **Guardrail:** the genre lock is the sole palette, lighting, and camera source
 **unless the user names a specific axis** — then compose that axis with its
