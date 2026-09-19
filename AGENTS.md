@@ -121,3 +121,8 @@ never revert or discard work you did not create.
 `prompt-review` is the QA gate for every prompt. For repository changes run
 `git diff --check`; this workspace ships no code, so unit, lint, type, and
 build checks are not applicable.
+
+Shared skills are maintained upstream in the ark-director workspace and pulled
+in with `/sync-skills` (see README Maintenance). The command never overwrites
+the local `template-factory` fork and leaves its changes uncommitted for
+review.

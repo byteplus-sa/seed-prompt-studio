@@ -24,7 +24,7 @@ review.
 `ugc-motion-presets`, `color-grade-palettes`, `tig-blocking-map`,
 `tig-scene-engine`
 
-**Referenced contracts — sync these 5 files:**
+**Referenced contracts — synced on full runs only:**
 
 `rules.json`, `production-policy.md`, `seedance-reference.md`,
 `element-identification.md`, `audio-video-alignment.md`
@@ -34,26 +34,74 @@ diverges from ark-director) and every skill not on the allowlist.
 
 ## Arguments
 
-`$ARGUMENTS` — optional space-separated skill names. When present, sync only
-those skills (each must be on the allowlist; reject any that is not). Empty
-means sync all 25.
+`$ARGUMENTS` — optional space-separated skill names, or `all`. When names are
+present, sync only those skills and skip the contract step; each name must be
+on the allowlist. Empty or `all` syncs the full allowlist plus the contracts.
 
 ## Procedure
 
-### 1. Verify the source checkout
+### 1. Preflight
 
 ```bash
 SRC="../ark-director"
 test -f "$SRC/.agents/skills/seedance-prompt-25/SKILL.md" && test -f "$SRC/AGENTS.md" \
   && echo "source ok: $SRC" \
   || { echo "ERROR: ark-director checkout not found at $SRC — stop and report"; exit 1; }
+echo "source revision: $(git -C "$SRC" rev-parse --short HEAD)"
+echo "--- this repo working-tree changes:"
+git status --short
 ```
 
-If the check fails, stop and report. Do not sync from anywhere else.
+If the source check fails, stop and report. Never sync from another path. The
+sync copies the source **working tree**, not the committed revision — the
+scope-aware dirty check happens in step 3. If this repo has uncommitted
+changes, warn that the sync diff will mix with them and recommend committing
+or stashing first so the sync is reviewable.
 
-### 2. Diff and sync each allowlisted skill
+### 2. Resolve the skill set
 
-Set `SKILLS` to the allowlist, or to `$ARGUMENTS` when provided. Then:
+The bash blocks below share opencode's persistent shell session, so variables
+set here are available to later steps.
+
+```bash
+ALLOWLIST="brief-intake prompt-review seedance-prompt-25 seedance-prompt-25-filipino seedance-prompt-20 seedance-acting-console seedance-animation-styles seedance-camera-presets seedance-graybox-world seedance-lens-presets seedance-lighting-presets seedance-pacing-presets seedance-motion-design seedance-music-video seedance-restoration seedance-vfx-prompt seedream-prompt seedream-character-sheet seedream-location-asset seed-audio-prompt ugc-ad-modes ugc-motion-presets color-grade-palettes tig-blocking-map tig-scene-engine"
+ARGS="$ARGUMENTS"
+[ "$ARGS" = "all" ] && ARGS=""
+if [ -z "$ARGS" ]; then
+  SKILLS="$ALLOWLIST"
+  echo "full run: 25 skills + 5 contracts"
+else
+  SKILLS="$ARGS"
+  for s in $SKILLS; do
+    case " $ALLOWLIST " in
+      *" $s "*) ;;
+      *) echo "ERROR: $s is not allowlisted — stop and report"; exit 1 ;;
+    esac
+  done
+  echo "scoped run: $SKILLS (contracts skipped)"
+fi
+```
+
+### 3. Source scope check
+
+The source working tree may be dirty with unrelated work. Confirm only when a
+dirty path intersects the sync scope:
+
+```bash
+SCOPE_PATHS=""
+for s in $SKILLS; do SCOPE_PATHS="$SCOPE_PATHS .agents/skills/$s"; done
+[ -z "$ARGS" ] && SCOPE_PATHS="$SCOPE_PATHS .agents/contracts"
+echo "--- dirty source paths intersecting the sync scope:"
+git -C "$SRC" status --short -- $SCOPE_PATHS
+```
+
+- **Empty output** — proceed. Unrelated source changes cannot affect this
+  sync; report them informationally in the summary.
+- **Non-empty output** — list the intersecting files and ask the user to
+  confirm before continuing. The sync would copy unreviewed in-progress work
+  from ark-director.
+
+### 4. Diff and sync each skill
 
 ```bash
 for s in $SKILLS; do
@@ -71,24 +119,26 @@ done
 ```
 
 `rsync --delete` mirrors the source bundle, so renamed or removed reference
-files disappear here too. The destination skill directory must already exist;
+files disappear here too. Every destination directory must already exist;
 never create a new skill directory from a sync.
 
-### 3. Sync the referenced contracts
+### 5. Sync the referenced contracts (full runs only)
 
 ```bash
-for c in rules.json production-policy.md seedance-reference.md \
-         element-identification.md audio-video-alignment.md; do
-  if cmp -s "$SRC/.agents/contracts/$c" ".agents/contracts/$c"; then
-    echo "unchanged  contracts/$c"
-  else
-    echo "updated    contracts/$c"
-    cp "$SRC/.agents/contracts/$c" ".agents/contracts/$c"
-  fi
-done
+if [ -z "$ARGS" ]; then
+  for c in rules.json production-policy.md seedance-reference.md \
+           element-identification.md audio-video-alignment.md; do
+    if cmp -s "$SRC/.agents/contracts/$c" ".agents/contracts/$c"; then
+      echo "unchanged  contracts/$c"
+    else
+      echo "updated    contracts/$c"
+      cp "$SRC/.agents/contracts/$c" ".agents/contracts/$c"
+    fi
+  done
+fi
 ```
 
-### 4. Verify the result
+### 6. Verify the result
 
 Frontmatter names must match their directories:
 
@@ -133,18 +183,22 @@ for b in bad:
 PY
 ```
 
+No stray artifacts:
+
 ```bash
-find .agents -name '.DS_Store' -o -name '__pycache__' | wc -l
+find .agents \( -name '.DS_Store' -o -name '__pycache__' \) | wc -l
 ```
 
-### 5. Report
+### 7. Report
 
 Summarize as a table: skill or contract | unchanged / updated | files that
-changed. Then:
+changed. Then include:
 
+- The source revision hash from the preflight.
+- `git status --short` and `git diff --stat` so the user can review the sync
+  diff directly.
 - If any synced `SKILL.md` changed its frontmatter description, list those
   skills and ask whether the README skill-table row should be updated. Do not
   rewrite README rows automatically — several rows are deliberately reworded
   for this prompt-only workspace.
-- State that nothing was committed and list the modified paths.
-- If nothing changed, say so plainly.
+- State that nothing was committed. If nothing changed, say so plainly.

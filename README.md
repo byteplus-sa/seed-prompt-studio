@@ -89,11 +89,23 @@ seed-prompt-studio/
 ├── .agents/
 │   ├── contracts/                  # prompt-only policy, axes, descriptors, rule IDs
 │   └── skills/                     # 26 prompt-composition skills
+├── .opencode/command/
+│   └── sync-skills.md              # /sync-skills — pull skill updates from ark-director
 └── projects/                       # local drafts (save-on-request; never a default Git staging target)
     └── <project-name>/
         ├── project.md              # optional brief
         └── prompts/                # saved prompt snapshots
 ```
+
+## Maintenance
+
+The full pipeline in
+[`byteplus-sa/ark-director`](https://github.com/byteplus-sa/ark-director) is the
+source of truth for the shared skills. Run `/sync-skills` inside opencode to
+mirror the 25 allowlisted skill bundles and their referenced contracts into
+this repo; the local `template-factory` fork is never overwritten. The command
+reports changes and leaves them uncommitted for review. A scoped run —
+`/sync-skills seedance-prompt-25` — syncs one skill and skips the contracts.
 
 ## Related repositories
 
