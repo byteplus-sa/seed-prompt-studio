@@ -32,20 +32,24 @@ uploads files, and never submits a task.
 | Seedance 2.5 prompts | `seedance-prompt-25` + [slot-mapping.md](references/slot-mapping.md) | Per-shot natural duration; ordered `@Image N` bindings |
 | Reusable recipe (optional) | [template-schema.json](references/template-schema.json) | Locked grammar + replaceable inputs + adaptation rules |
 
-## Input handling (no media tools in this workspace)
+## Input handling (no video-understanding service)
 
-This workspace has no video-understanding, upload, or frame-extraction tools.
+This workspace has no video-understanding service, upload, or media tools, but
+the agent can extract frames from a local video with a locally available tool.
 Resolve one of these modes before analysis and record which one was used:
 
 | Mode | When | What you do |
 | --- | --- | --- |
+| **Agent frame extraction** | `ffmpeg`/`ffprobe` are on PATH | Extract frames yourself per [frame-extraction.md](references/frame-extraction.md): measured cuts, per-shot frames, motion bursts. Read them as images. |
 | **Agent video pass** | Your client can watch the provided video | Analyze directly with the analysis prompt |
-| **Keyframe set** | You cannot watch the video | Ask the user for a keyframe set — at least one frame per shot, mid-shot preferred — plus total duration, aspect ratio, and any audio notes. Read the frames as images. |
+| **User keyframe set** | No extraction tool and you cannot watch the video | Ask the user for one frame per shot (mid-shot preferred) plus total duration, aspect ratio, and any audio notes. Read the frames as images. |
 | **External pass** | The user can run a video-capable tool | Hand the user the analysis prompt to paste there; they return the JSON |
 
-**Never claim to have watched a video you could not access.** When working
-from keyframes, mark timing, audio, and motion observations as estimates and
-record `source: keyframes` in the analysis metadata.
+**Never claim to have watched a video you could not access.** Timing is
+measured only when cuts were detected from the source; otherwise mark timing,
+audio, and motion as estimates and record the mode in the analysis metadata.
+Audio is never heard from frames — use the user's transcript or notes, or
+explicit unknowns per [frame-extraction.md](references/frame-extraction.md).
 
 ## Core operating model
 
@@ -77,10 +81,11 @@ questions rather than guessing.
 
 ### 2. Analysis
 
-Run the analysis prompt (agent pass, keyframes, or external). Validate the
-returned JSON against `breakdown-schema.json` by inspection: valid JSON, all
-required fields, ordered non-overlapping shots, every `keyframe_index` and
-`in_shots` entry referring to an existing shot, element ids kebab-case.
+Run the analysis prompt (extraction, agent pass, user keyframes, or external).
+Validate the returned JSON against `breakdown-schema.json` by inspection: valid
+JSON, all required fields, ordered non-overlapping shots, every
+`keyframe_index` and `in_shots` entry referring to an existing shot, element
+ids kebab-case.
 
 Write `breakdown.md` (readable) and keep `analysis.json` beside it when the
 user requests saved drafts. **Gate A: the user reviews the breakdown** before
@@ -89,8 +94,9 @@ any prompt authoring. Revise and re-present until approved.
 ### 3. Motion review
 
 A static action description is not enough to reproduce how a template moves.
-Run the motion-review pass on the same source. Merge results into the
-analysis **by `shot_index`, never by array position**, as
+Run the motion-review pass on the same source — read the dense motion bursts
+when frames were extracted, or the user's keyframes otherwise. Merge results
+into the analysis **by `shot_index`, never by array position**, as
 `shots[].motion`. Motion evidence may enrich the approved breakdown without
 changing timing or action; if it changes an approved decision, mark the
 affected prompts stale and re-present.
@@ -180,13 +186,15 @@ reference bundle, or motion design at a time.
 ## File layout (saved drafts, on request only)
 
 ```text
-projects/<project>/templates/<template-id>/
-├── analysis.json               # validated VideoBreakdown
-├── breakdown.md                # readable rendering
-├── motion-review.md            # merged motion evidence
-├── recipe.json                 # optional reusable template
-└── prompts/
-    ├── prompt_<element-id>.md  # Seedream element prompts
-    ├── prompt_storyboard_v01.md
-    └── prompt_<shot-id>.md     # Seedance prompts
+projects/<project>/
+├── frames/                     # analysis-only extraction scratch
+└── templates/<template-id>/
+    ├── analysis.json           # validated VideoBreakdown
+    ├── breakdown.md            # readable rendering
+    ├── motion-review.md        # merged motion evidence
+    ├── recipe.json             # optional reusable template
+    └── prompts/
+        ├── prompt_<element-id>.md  # Seedream element prompts
+        ├── prompt_storyboard_v01.md
+        └── prompt_<shot-id>.md     # Seedance prompts
 ```

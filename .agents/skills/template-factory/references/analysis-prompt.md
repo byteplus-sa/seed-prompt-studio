@@ -18,8 +18,9 @@ breakdown metadata.
 
 | Mode | How |
 | --- | --- |
+| **Agent frame extraction** | `ffmpeg`/`ffprobe` are on PATH: extract frames per [frame-extraction.md](frame-extraction.md), then run this prompt in keyframe mode with **measured** shot boundaries |
 | **Agent video pass** | Your client can watch the video: run the prompt below yourself and return JSON only |
-| **Keyframe set** | You cannot watch the video: read the user-provided frames as images, apply the same contract, mark timing/audio/motion as estimates, and set `source: keyframes` in metadata |
+| **User keyframe set** | You cannot watch the video and no extraction tool exists: read the user-provided frames as images, apply the same contract, mark timing/audio/motion as estimates, and set `source: keyframes` in metadata |
 | **External pass** | Hand the prompt to the user's video-capable tool; they return the JSON for validation |
 
 Never claim to have watched a video you could not access.
