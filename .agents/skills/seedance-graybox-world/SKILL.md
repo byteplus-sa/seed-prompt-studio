@@ -98,11 +98,11 @@ timing from @Video 1 unchanged. <Grounding and face-protection lines when people
 are visible.>
 ```
 
-Submit with `omni_reference_task_type="edit"`, `generate_audio: false` when the
+Deliver with the parameter block: `omni_reference_task_type="edit"`, `generate_audio: false` when the
 source is silent (Blender previews usually are), `resolution` 480p/720p/1080p.
 Duration auto-locks to the source (±0.3s) — do not set it. If the source exceeds
-30s, trim to ≤29s before handoff; if it exceeds one clip, split on shot
-boundaries.
+30s, ask the user to trim it to ≤29s before you write the prompt; if it exceeds
+one clip, ask the user to split it on shot boundaries.
 
 ## Recipes
 
@@ -215,6 +215,6 @@ keeping geometry, motion, camera, framing, timing, and cuts exactly as they are.
 6. Lighting is stated physically and matches the new environment.
 7. Audio follows the source (silent stays silent); no invented score.
 8. People carry grounding and face-protection locks.
-9. Source is within the duration ceiling; longer sources are trimmed or split on shot boundaries.
+9. Source is within the duration ceiling; longer sources are trimmed or split on shot boundaries by the user.
 10. The prompt contains the edit block, not a production workflow or generation instructions.
 11. `prompt-review` has passed before handoff.

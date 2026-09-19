@@ -31,7 +31,7 @@ Main agent writes/updates prompts
 ## When to trigger
 
 - After writing or updating any prompt for a BytePlus generative model.
-- Before submitting a generation task (Seedance, Seed Audio, Seedream).
+- Before the user pastes a generation prompt into the destination UI (Seedance, Seed Audio, Seedream).
 - When the user asks to review, check, QA, validate, or lint prompts.
 - After revising a prompt based on generated output feedback.
 
@@ -82,14 +82,13 @@ Use explicit input first; filenames below are fallback hints, not authority:
 | Seedream prop sheet | `prompt_prop_*` | `seedream-prompt` (general image rules apply) |
 | Seedream screen UI reference | `prompt_screen_*` | `seedream-prompt` (general image rules apply) |
 | Seedream brand/title card | `prompt_card_*` | `seedream-prompt` (general image rules apply) |
-| Storyboard prompts | `prompt_sNN_kf*` (multi-panel) | `template-factory` (storyboard prompts) |
+| Storyboard prompts | `prompt_storyboard_*` (multi-panel) | `template-factory` (storyboard prompts) |
 | Seedance music video | `prompt_sNN_shNNN_tNN_vNN.md` (song-driven) | `seedance-music-video` |
 
 Deterministic HTML-entrypoint screens, cards, posters, product layouts, and
-overlays have no generation prompt and stay outside this table. Review only a
-generative image layer inside a hybrid; the deterministic result uses
-exact-copy, font, layout, dimension, alpha, provenance, and visible-design QA
-instead.
+overlays are out of scope in this workspace and have no generation prompt; they
+stay outside this table. Review only a generative image layer; deterministic
+results are produced outside this workspace.
 
 The "Checklist source" column is a provenance label only — this skill never loads
 a sibling; the applicable checklist is always read from this skill's own bundled
@@ -112,10 +111,9 @@ the files with the `prompt_` prefix that sit beside their media asset. Read each
 to get its full text.
 
 If reviewing prompts that have not yet been saved to files (drafted inline in
-`shot.md` or `scene.md`), extract the prompt text from the manifest's `prompt:` field
-or inline working copy. Before production submission, freeze the accepted text
-as its immutable `prompt_*.md` snapshot so the calling orchestrator can embed it
-in the current project canvas with `promptFile`.
+working copy), extract the prompt text from the working copy. Before handoff,
+freeze the accepted text as its immutable `prompt_*.md` snapshot (when the user
+requested saved drafts) or deliver it in chat.
 
 ### Step 2 — Detect prompt type and load checklist
 

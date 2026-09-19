@@ -26,7 +26,7 @@ Exact copy, typography, logos, screen/UI layouts, title cards, posters, product 
 
 Never ask the model to render overlay text such as captions, taglines, CTAs or end cards; keep generated footage text-free — on-screen text is added in post by the destination workflow, which is out of scope here. A transparent delivery graphic and a solid-background model reference are separate assets; never use a white matte as fake transparency.
 
-Single-person references should preserve the intended identity and avoid cloning. Preserve approved visual descriptors and the face anchor; do not infer gender identity from appearance. Sheet cleanup and local image edits are out of scope here; regenerate from a revised prompt or hand back.
+Single-person references should preserve the intended identity and avoid cloning. Preserve approved visual descriptors and the face anchor; do not infer gender identity from appearance. Tool-based post-generation pixel cleanup is out of scope here — regenerate from a revised prompt instead. Image-editing prompts (I2I edit instructions) remain prompt deliverables.
 
 An explicitly selected supported conditioning input is a promoted composition or motion reference, not a control-only asset. Record the selected source, its current hash when it is a local file, and the intended reference role. Changing a flag alone does not grant approval.
 

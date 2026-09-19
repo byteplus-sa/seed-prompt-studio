@@ -9,4 +9,4 @@ Separate Seed Audio dialogue is opt-in when the user requests lip-synced dialogu
 5. Replacing audio invalidates dependent review hashes. Preserve old snapshots/takes; obtain a new review for the changed request.
 6. Provider success places output in review. Inspect lip sync, dialogue placement, audio streams and decode integrity; only user approval makes the take approved.
 
-For assembly, probe audio and video stream durations and pad short audio to the intended video timeline before crossfades. Validate final duration within the declared codec tolerance, streams, full decode, and audible continuity. Loudness readings do not replace listening.
+Assembly happens in the destination workflow, not here. When it does, probe audio and video stream durations and pad short audio to the intended video timeline before crossfades. Validate final duration within the declared codec tolerance, streams, full decode, and audible continuity. Loudness readings do not replace listening.

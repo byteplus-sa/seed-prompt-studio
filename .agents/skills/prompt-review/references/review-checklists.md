@@ -817,7 +817,7 @@ Source skill: `seed-audio-prompt`
 51. **Shot timestamps align to audio.** Seedance shot time ranges match actual audio
     timing.
 
-52. **Audio as reference_audio.** Passed to Seedance task as `reference_audio`.
+52. **Audio as reference_audio.** Delivered as the ordered `reference_audio` binding (`@Audio 1`).
 
 ### Brand-name pronunciation
 
@@ -1148,8 +1148,9 @@ Source: storyboard prompt conventions in this workspace
 
 ### Revisions
 
-22. **Local edits preferred.** After a composition is approved, prefer local edits over
-    full re-generation.
+22. **Regeneration preferred.** After a composition is approved, prefer a revised
+    prompt over re-authoring from scratch; tool-based pixel cleanup is out of
+    scope in this workspace.
 
 23. **Seeds for tracking.** Used for experiment tracking, not as the identity system.
 

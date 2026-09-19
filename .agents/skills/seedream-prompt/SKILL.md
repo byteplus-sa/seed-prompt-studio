@@ -77,7 +77,7 @@ CTA, product order, or pixel geometry carries the deliverable, create or select
 the text-free image layer here and finish the exact graphic through a
 deterministic HTML-entrypoint route. Do not ask Seedream to recreate a layout that
 the caller can render exactly. A hybrid keeps this generated layer's prompt,
-review, task, selection, and hash evidence separately from the deterministic
+review, selection, and hash evidence separately from the deterministic
 render record.
 
 ## Usage tips

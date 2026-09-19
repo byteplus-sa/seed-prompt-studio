@@ -109,6 +109,8 @@ staging target.
 | --- | --- |
 | `projects/<project>/project.md` | Optional brief and confirmed choices |
 | `projects/<project>/prompts/prompt_<asset-stem>.md` | Saved prompt drafts, immutable after handoff |
+| `projects/<project>/elements/<element-id>/` | Optional element prompt records and acquired-asset provenance |
+| `projects/<project>/frames/` | Analysis-only frame-extraction scratch; never a deliverable |
 
 Folders and IDs use lowercase kebab-case. Prompt snapshots are saved only on
 explicit request; chat-only is the default.

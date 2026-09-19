@@ -378,7 +378,7 @@ duration, trim the audio prompt (shorter ambience tails, fewer pauses, tighter
 scene descriptions) and regenerate. Never pad the video to fit an over-long
 audio.
 
-After generating the audio, inspect it (or transcribe with `speech_to_text`)
+After generating the audio, inspect it (or check it against the user's transcript)
 and set the shot timestamps so each line lands at the second it actually occurs.
 
 Record the audio asset path, SHA-256, verified duration, and the

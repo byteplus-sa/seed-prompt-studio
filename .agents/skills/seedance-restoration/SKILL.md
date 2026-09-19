@@ -78,14 +78,16 @@ Output: a Seedance 2.5 structured-edit prompt with the source bound as `@Video 1
 5. **Write the prompt** using the canonical template. Make the dominant defect
    explicit and dominant; never bury it in a mixed list.
 6. **Run `prompt-review`** against the Seedance 2.5 edit checklist before
-   submission.
-7. **Verify the fix before splicing — do not trust the task.** Re-inspect the
-   Seedance output the same way (video pass, or extracted frames) and check the
+   handoff.
+7. **Verify the fix before relying on it — do not trust a reported success.**
+   Ask the user to share the generated clip (or frames from it) and re-inspect
+   it the same way (video pass, or extracted frames); check the
    same three things: the defect is gone, the people/scene/camera are intact, and
-   no new artifacts were introduced. Only splice a verified-clean clip; a
-   technical `succeeded` is not proof the tear/wave/grain actually left.
-8. **Re-mux original audio** afterward. Seedance regenerates native audio; for
-   "keep everything the same," mux the source audio back onto the restored video.
+   no new artifacts were introduced. Only build on a verified-clean clip; a
+   reported `succeeded` is not proof the tear/wave/grain actually left.
+8. **Original audio re-mux** happens in the destination workflow. Seedance
+   regenerates native audio; for "keep everything the same," the user muxes the
+   source audio back onto the restored video outside this workspace.
 
 ## Escalation ladder
 
@@ -129,7 +131,7 @@ frame. They need different vocabulary and a different mental model:
 
 ### Template (scan-line tear / rolling band)
 
-Submit with `omni_reference_task_type="edit"`, `generate_audio: false`, `resolution` 1080p.
+Deliver with the parameter block: `omni_reference_task_type="edit"`, `generate_audio: false`, `resolution` 1080p.
 
 ```text
 [Edit Goal]
@@ -159,7 +161,7 @@ duplicated copy.
 
 ## Canonical prompt template (Seedance 2.5 edit)
 
-Submit with `omni_reference_task_type="edit"`, `generate_audio: false`, `resolution` 1080p.
+Deliver with the parameter block: `omni_reference_task_type="edit"`, `generate_audio: false`, `resolution` 1080p.
 
 ```text
 [Edit Goal]
@@ -245,4 +247,4 @@ direction.
     clean margin on both sides — never at the clip boundary.
 11. The Seedance output was **verified by re-inspection** (defect gone, content
     intact, no new artifacts) before splicing.
-12. Prompt-review gate passed before submission; original audio re-muxed after.
+12. Prompt-review gate passed before handoff; original audio re-mux happens in the destination workflow.

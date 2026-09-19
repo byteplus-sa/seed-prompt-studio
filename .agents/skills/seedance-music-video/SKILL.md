@@ -244,7 +244,7 @@ No line may be skipped, shortened, mumbled, or reordered.
 
 **How to get the timestamps (ASR-to-timeline procedure):**
 
-1. Run speech recognition (ASR) on the audio master
+1. Ask the user to run ASR (or supply a transcript) on the audio master; treat returned word timings as user-supplied evidence
 2. Extract word-level `start_time_ms` and `end_time_ms` from the result
 3. Group words into lyric lines at natural phrase boundaries (commas, periods,
    bar changes)
@@ -277,7 +277,7 @@ Example ASR-to-timeline conversion:
 After generation, verify that the output audio contains all expected lyrics:
 
 1. Have the user export the audio track from the generated video
-2. Run speech recognition (ASR) on the exported audio
+2. Ask the user to run ASR (or supply a transcript) on the exported audio
 3. Compare the transcription against the expected lyrics
 4. Flag any missing, reordered, or garbled lines
 5. If lines are missing: use the timestamped lyric timeline technique

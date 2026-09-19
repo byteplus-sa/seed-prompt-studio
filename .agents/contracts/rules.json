@@ -89,7 +89,7 @@
         "static_image"
       ],
       "owner_path": ".agents/contracts/element-identification.md",
-      "summary": "Exact static copy and geometry use the deterministic graphics route rather than generative image synthesis.",
+      "summary": "Exact static copy and geometry are out of scope in this workspace; do not improvise a generative prompt for them.",
       "exceptions": []
     },
     {
@@ -100,7 +100,7 @@
         "stage_exit"
       ],
       "owner_path": ".agents/contracts/element-identification.md",
-      "summary": "A deterministic raster has a schema-valid render record bound to its source, inputs, renderer, copy, dimensions, alpha intent, and output hash.",
+      "summary": "Reserved for workspaces with deterministic rendering: a deterministic raster has a schema-valid render record bound to its source, inputs, renderer, copy, dimensions, alpha intent, and output hash.",
       "exceptions": []
     },
     {

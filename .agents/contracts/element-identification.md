@@ -34,7 +34,7 @@ When the brief authorizes a real brand, logo, packshot, or labeled product:
 1. **Reuse** an existing project asset if its content hash still matches the
    needed identity.
 2. **Acquire** an official or authorized web/pack shot/logo when no usable local
-   file exists — download into `elements/<element-id>/`, keep source copies under
+   file exists — download into `projects/<project>/elements/<element-id>/`, keep source copies under
    `refs/` when useful, and record provenance (source URL, download time,
    SHA-256) in the element manifest and/or `PROVENANCE.md`.
 3. **Promote** the acquired file to the canonical asset name
