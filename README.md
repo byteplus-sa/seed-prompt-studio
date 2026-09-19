@@ -13,7 +13,7 @@ The agent never calls a generation API, uploads media, or writes production file
 |---|---|
 | Prompt composition skills for Seed-family models | A generation pipeline — no MCP server, no Ark CLI |
 | A review gate (`prompt-review`) for every generation-bound prompt | A renderer — no HTML/CSS/SVG, no HyperFrames |
-| Chat-first delivery of paste-ready prompt blocks | A 3D or assembly tool — no Blender, no FFmpeg |
+| Chat-first delivery of paste-ready prompt blocks | A 3D or assembly tool — no Blender; FFmpeg only for read-only analysis frame extraction |
 | Optional local prompt drafts under `projects/` | A production canvas — no `showcase.json`, no task registry |
 
 For the full generation pipeline, use the partner workspace
@@ -54,7 +54,7 @@ flowchart LR
 | **seedance-acting-console** | Turn playable motives and tactics into observable acting cues appropriate to framing, visibility and intensity. |
 | **seedance-animation-styles** | Write Seedance animation prompts for claymation, needle felt, wood puppets, toy miniatures, rubber hose, painterly 2D, cubist ink, stylized 3D, silicone creatures, and wax crayon. |
 | **seedance-camera-presets** | Turn a named camera move (dolly, pan, orbit, crane, tracking, handheld, FPV, aerial, bullet time, dolly zoom, whip pan, one-take, static) into a drop-in Camera block. |
-| **seedance-graybox-world** | Write Seedance prompts for the untextured gray graybox/blockout look when gray IS the desired final style, not just a previs reference. |
+| **seedance-graybox-world** | Write Seedance edit prompts for Blender-rendered videos (playblasts, graybox/previz, finished renders); change appearance while preserving Blender's motion, camera, and timing. |
 | **seedance-lens-presets** | Translate a lens, focal length, aperture, or sensor request into a canonical visible-result phrase for Seedance prompts or Seedream style. |
 | **seedance-lighting-presets** | Translate a named lighting setup into a canonical Seedream `Lighting:` recipe and a matching Seedance visual-style lighting phrase. |
 | **seedance-pacing-presets** | Turn a named pacing preset (speed ramp, slow motion, bullet time, montage, cut rhythm, impact moment) into a timestamped motion, cut, and pacing block. |

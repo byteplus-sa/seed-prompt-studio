@@ -8,8 +8,10 @@ prompts; it never generates, uploads, or persists media.
 
 This workspace produces copy-paste prompt blocks. The user pastes them into
 Lumina or another Seed-model UI. There is no MCP server, Ark CLI, generation
-transport, deterministic HTML renderer, HyperFrames, Blender, or FFmpeg here —
-those live in the ark-director workspace and are out of scope.
+transport, deterministic HTML renderer, HyperFrames, Blender, or assembly
+tooling here — those live in the ark-director workspace and are out of scope.
+Local `ffmpeg`/`ffprobe` are permitted for read-only analysis frame extraction
+only.
 
 Deliver prompts in chat by default. Save a draft under
 `projects/<name>/prompts/` only when the user explicitly asks.
@@ -47,7 +49,7 @@ requested choreography needs more.
 | Filipino/Tagalog dialogue direction | `seedance-prompt-25-filipino` |
 | Acting direction and emotional intensity | `seedance-acting-console` |
 | Camera / lens / lighting / pacing presets | `seedance-camera-presets`, `seedance-lens-presets`, `seedance-lighting-presets`, `seedance-pacing-presets` |
-| Animation styles / graybox world | `seedance-animation-styles`, `seedance-graybox-world` |
+| Animation styles / Blender-video edit prompts | `seedance-animation-styles`, `seedance-graybox-world` |
 | Motion design / music video / restoration / VFX edit prompts | `seedance-motion-design`, `seedance-music-video`, `seedance-restoration`, `seedance-vfx-prompt` |
 | Seedream image prompts, character sheets, location plates | `seedream-prompt`, `seedream-character-sheet`, `seedream-location-asset` |
 | Seed Audio prompts | `seed-audio-prompt` |
@@ -65,9 +67,10 @@ workspace's declared orchestrator for reference-video reverse engineering; it
 sequences the prompt leaves and the `prompt-review` gate.
 
 This workspace ships prompt-composition skills only. Generation pipelines
-(film-production, template-factory, seedance-vfx-pipeline, showcase-html,
-html-graphic-render, hyperframes, blender-*, ark-mcp, ffmpeg, media-*) are
-not installed here; do not attempt their workflows.
+(film-production, seedance-vfx-pipeline, showcase-html, html-graphic-render,
+hyperframes, blender-*, ark-mcp, media-*) are not installed here; do not
+attempt their workflows. Local `ffmpeg`/`ffprobe` are analysis-only — never
+generation, assembly, or transcoding.
 
 Keep skill metadata concise and valid YAML. Move substantial conditional
 modes and examples into focused same-skill references.
@@ -79,6 +82,9 @@ modes and examples into focused same-skill references.
   reviewer output is incomplete.
 - Freeze the exact prompt text before handoff; changed inputs invalidate
   review.
+- Source video is inspected by an agent video pass when the client can watch
+  it, or by local `ffmpeg`/`ffprobe` frame extraction read as images when it
+  cannot; never claim to have watched footage you could not access.
 - Preserve exact canonical descriptors where applicable. Prefer positive,
   observable direction; necessary edit-scope exclusions are allowed.
 - Identify all visible props; only threshold-qualified props need locked
