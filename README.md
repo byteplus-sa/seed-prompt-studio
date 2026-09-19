@@ -47,6 +47,7 @@ flowchart LR
 | --- | --- |
 | **brief-intake** | Shape intent-led briefs and treatments; preserve confirmed decisions. |
 | **prompt-review** | Review and fix prompts written for BytePlus generative models (Seedance, Seed Audio, Seedream) against the repo's skill best practices using a sub-agent review pipeline. |
+| **template-factory** | Reverse-engineer a reference video into a prompt package: structured breakdown, Seedream element prompts (characters, locations, props), storyboard prompts, and Seedance 2.5 video prompts — reviewed and paste-ready. |
 | **seedance-prompt-25** | Write production-grade Seedance 2.5 video prompts with the six-part formula, 50-material multimodal referencing, variable-duration staging (4-30s), timestamp pacing, structured editing, extension, keyframes, storyboards, and blockouts. |
 | **seedance-prompt-25-filipino** | Write Filipino and Taglish dialogue direction while preserving exact words and register; evidence-based pronunciation hypotheses and opt-in lip-sync audio. |
 | **seedance-prompt-20** | Legacy Seedance 2.0 prompt skill for 4K output (unsupported by 2.5), Fast/Mini speed variants, or lower cost per generation. |
@@ -87,7 +88,7 @@ seed-prompt-studio/
 ├── AGENTS.md                       # workspace contract for agents
 ├── .agents/
 │   ├── contracts/                  # prompt-only policy, axes, descriptors, rule IDs
-│   └── skills/                     # 25 prompt-composition skills
+│   └── skills/                     # 26 prompt-composition skills
 └── projects/                       # local drafts (save-on-request; never a default Git staging target)
     └── <project-name>/
         ├── project.md              # optional brief

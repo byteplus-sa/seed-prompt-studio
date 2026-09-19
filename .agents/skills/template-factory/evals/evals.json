@@ -1,0 +1,54 @@
+{
+  "skill_name": "template-factory",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Turn this reference video into prompts I can paste into Lumina: I want the same look and motion, the characters and locations as image prompts, a storyboard, and the video prompts.",
+      "expected_output": "A validated full-shot breakdown approved by the user, Seedream element prompts routed by element type, storyboard prompts with one panel per shot, per-shot Seedance 2.5 prompts with ordered @Image bindings, each passed through prompt-review and delivered as labeled copy-paste blocks.",
+      "files": [],
+      "assertions": [
+        "The breakdown is validated against breakdown-schema.json before any prompt is authored.",
+        "The user approves the breakdown before element, storyboard, or Seedance prompts are written.",
+        "Character, location, and prop elements route to seedream-character-sheet, seedream-location-asset, and seedream-prompt respectively.",
+        "The storyboard defaults to one panel per shot with a monochrome sketch grid.",
+        "Every prompt passes prompt-review before handoff and the review outcome is reported.",
+        "Nothing is generated, uploaded, or submitted; prompts are delivered in chat."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Here are 8 screenshots from the ad and it is about 20 seconds long. Build the full prompt package.",
+      "expected_output": "An analysis built from keyframes with source: keyframes, estimated timing and audio marked as estimates, and the user asked to confirm the strongest motion cues before the Seedance prompts depend on them.",
+      "files": [],
+      "assertions": [
+        "The agent does not claim to have watched the video.",
+        "The analysis records source: keyframes and marks timing, audio, and motion as estimates.",
+        "The motion review reports low confidence for inferred motion and asks the user to confirm or correct the strongest cues.",
+        "The package still produces element, storyboard, and Seedance prompts against the schema contract."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The last attempt felt static compared with the reference. Fix the motion but keep the approved shot timing.",
+      "expected_output": "A motion review keyed by shot_index merged into a new analysis revision with the approved boundaries unchanged, and updated Seedance Action wording passed through prompt-review.",
+      "files": [],
+      "assertions": [
+        "Motion merges by shot_index rather than array position.",
+        "The approved breakdown revision and its hash are preserved and bound to the motion review.",
+        "Proposed timing changes are re-presented for approval instead of silently applied.",
+        "The revised Seedance prompt passes prompt-review before handoff."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "The reference has a product end card with the exact logo and price. Include that in the prompts.",
+      "expected_output": "The factory states exact typography, logos, price, and CTA treatments are out of scope in this workspace and hands that element back to the ark-director workspace instead of improvising a prompt.",
+      "files": [],
+      "assertions": [
+        "No Seedream or Seedance prompt is authored to reproduce the exact logo, price, or CTA layout.",
+        "The out-of-scope element is explicitly handed back to the ark-director workspace.",
+        "The remaining prompt package still proceeds for the in-scope elements."
+      ]
+    }
+  ]
+}

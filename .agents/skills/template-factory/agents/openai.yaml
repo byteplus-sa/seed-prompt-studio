@@ -1,0 +1,4 @@
+interface:
+  display_name: "Template Factory"
+  short_description: "Reverse-engineer a reference video into Seedance, Seedream element, and storyboard prompts"
+  default_prompt: "Use $template-factory to turn this reference video into a prompt package."

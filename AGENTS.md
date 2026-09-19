@@ -41,6 +41,7 @@ requested choreography needs more.
 | Intent | Route |
 | --- | --- |
 | Brief shaping | `brief-intake` |
+| Reference-video reverse engineering (breakdown → element, storyboard, Seedance prompts) | `template-factory` |
 | Seedance 2.5 prompt grammar | `seedance-prompt-25` |
 | Seedance 2.0 / 4K legacy grammar | `seedance-prompt-20` |
 | Filipino/Tagalog dialogue direction | `seedance-prompt-25-filipino` |
@@ -59,7 +60,9 @@ requested choreography needs more.
 
 One skill provides one capability. Leaf skills remain independently usable;
 composition hints are prose, not directives to load siblings. Load only the
-specialists needed for the current request.
+specialists needed for the current request. `template-factory` is this
+workspace's declared orchestrator for reference-video reverse engineering; it
+sequences the prompt leaves and the `prompt-review` gate.
 
 This workspace ships prompt-composition skills only. Generation pipelines
 (film-production, template-factory, seedance-vfx-pipeline, showcase-html,
