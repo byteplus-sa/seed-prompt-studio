@@ -1,0 +1,4 @@
+interface:
+  display_name: "UGC Motion Presets"
+  short_description: "Named UGC motion presets as Seedance prompt blocks"
+  default_prompt: "Use $ugc-motion-presets to turn a named UGC motion preset into a Seedance prompt block."

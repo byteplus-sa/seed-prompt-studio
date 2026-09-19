@@ -33,6 +33,7 @@ Load only the contract relevant to the current request:
 | Prompt review policy and stable rule IDs | [rules.json](.agents/contracts/rules.json) and [production policy](.agents/contracts/production-policy.md) |
 | Requested camera, lens, lighting, grade, acting, pacing, blocking, medium axes | [Directorial axes](.agents/contracts/seedance-reference.md) |
 | Canon, props, screens and reference roles | [Element identification](.agents/contracts/element-identification.md) |
+| Dialogue synchronization and assembly | [Audio-video alignment](.agents/contracts/audio-video-alignment.md) |
 
 ## Routing
 
