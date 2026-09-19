@@ -54,6 +54,7 @@ requested choreography needs more.
 | Motion design / music video / restoration / VFX edit prompts | `seedance-motion-design`, `seedance-music-video`, `seedance-restoration`, `seedance-vfx-prompt` |
 | Seedream image prompts, character sheets, location plates | `seedream-prompt`, `seedream-character-sheet`, `seedream-location-asset` |
 | Seed Audio prompts | `seed-audio-prompt` |
+| Audio commercial prompts (story arc, cast, tagline) | `seed-audio-commercial` |
 | UGC ad modes / UGC motion presets | `ugc-ad-modes`, `ugc-motion-presets` |
 | Color grade sentence | `color-grade-palettes` |
 | Scene structure / staging references | `tig-scene-engine`, `tig-blocking-map` |

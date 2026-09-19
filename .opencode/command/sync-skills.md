@@ -26,7 +26,8 @@ review.
 
 **Never sync:**
 
-- `template-factory` — a deliberate local fork whose content diverges upstream.
+- `template-factory` and `seed-audio-commercial` — deliberate local forks whose
+  content diverges upstream.
 - Everything under `.agents/contracts/` — locally maintained variants.
 - Every skill not on the allowlist.
 
