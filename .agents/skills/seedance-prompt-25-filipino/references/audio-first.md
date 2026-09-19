@@ -41,8 +41,9 @@ Measure actual duration against the video speaking window. If verification is
 unavailable, the track remains unresolved and cannot be claimed as verified.
 
 A failed delivery hypothesis calls for a bounded proposed repair, not automatic
-regeneration. Preserve the provider task and prepared request; the caller
-reconciles an uncertain submission instead of repeating it.
+regeneration. Preserve the prepared audio track and its parameter block; the
+user reconciles the outcome in the destination UI instead of re-pasting
+unchanged.
 
 ## Video prompt form
 

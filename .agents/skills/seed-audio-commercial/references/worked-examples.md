@@ -10,7 +10,8 @@ mode selection and caller responsibilities.
 
 This is the verified, production-grade prompt that generated a 110.6-second
 dramatic commercial in T2A mode. Use it as a reference for structure, length,
-and density.
+and density. Both examples are illustrative; substitute the user's authorized
+brand, product facts, cast, and language before reusing the structure.
 
 ```text
 Scene and atmosphere

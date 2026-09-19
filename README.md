@@ -100,4 +100,5 @@ inside opencode to mirror the 25 allowlisted skill bundles into this repo; the
 local `template-factory` fork and all contracts are locally maintained and are
 never overwritten by a sync. The command reports changes and leaves them
 uncommitted for review. A scoped run — `/sync-skills seedance-prompt-25` —
-syncs one skill only.
+syncs one skill only. The sync source defaults to a sibling checkout at
+`../ark-director` and can be relocated with `SKILLS_SOURCE`.
