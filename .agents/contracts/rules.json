@@ -88,7 +88,7 @@
       "applies_to": [
         "static_image"
       ],
-      "owner_path": ".agents/contracts/routing.md",
+      "owner_path": ".agents/contracts/element-identification.md",
       "summary": "Exact static copy and geometry use the deterministic graphics route rather than generative image synthesis.",
       "exceptions": []
     },
@@ -99,7 +99,7 @@
         "static_image",
         "stage_exit"
       ],
-      "owner_path": ".agents/skills/html-graphic-render/SKILL.md",
+      "owner_path": ".agents/contracts/element-identification.md",
       "summary": "A deterministic raster has a schema-valid render record bound to its source, inputs, renderer, copy, dimensions, alpha intent, and output hash.",
       "exceptions": []
     },

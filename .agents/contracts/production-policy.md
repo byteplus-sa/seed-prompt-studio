@@ -76,8 +76,9 @@ overflow, dimension, alpha, thumbnail-legibility, visible-design, canvas, and
 explicit selection checks still apply. Generative layers inside a hybrid retain
 their own prompt-review and provider task evidence.
 
-Every render record must conform to the bundled
-[deterministic render-record schema](../skills/html-graphic-render/references/render-record.schema.json)
+Every render record must conform to the deterministic render-record schema
+maintained upstream in the ark-director workspace
+(`html-graphic-render/references/render-record.schema.json`)
 before the PNG and record are promoted together.
 
 Use explicit prompt_type, model, operation, language, requested axes, may_change and must_preserve to route review. A completed review is bound to the request hash and lists applicable rule outcomes and evidence. Missing/empty reviewer output is incomplete. Static image, audio, editing and narrative checks are applied to their relevant artifact types.

@@ -64,8 +64,9 @@ carry the design. Store the editable HTML entrypoint and its local CSS/SVG
 dependencies beside the versioned PNG and
 record `source: deterministic_render`, `generation: deterministic_html`, local
 input and font hashes, canvas dimensions, background/alpha mode, renderer
-version, and output hash. Validate the record against the
-[render-record schema](../skills/html-graphic-render/references/render-record.schema.json).
+version, and output hash. Validate the record against the deterministic
+render-record schema maintained upstream in the ark-director workspace
+(`html-graphic-render/references/render-record.schema.json`).
 
 Use Seedream for synthesized photography, characters, locations, illustration,
 materials, or expressive textures. For a hybrid, approve the generated or

@@ -67,7 +67,7 @@ mode selection and caller responsibilities.
 | `aigc_watermark` | bool | Explicit rhythm marker appended to end of audio. Default `false`. |
 | `aigc_metadata` | object | Implicit header metadata. Sub-fields: `enable` (bool), `content_producer`, `produce_id`, `content_propagator`, `propagate_id`. Default disabled. |
 
-Note: the MCP tool `seed_audio_generate` exposes these as `watermark.enable` and
+Note: some client wrappers expose these as `watermark.enable` and
 `watermark.metadata`; the `aigc_watermark` / `aigc_metadata` names above are the
 raw REST API fields.
 
