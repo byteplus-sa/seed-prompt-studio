@@ -251,6 +251,9 @@ Instead, bind each lyric line to its own timestamped slot:
 [7-8 seconds] { I don't remember the facts, }
 ```
 
+(Example lines quote the rights-holder-authorized `mv-bryce-vine` project
+track; the technique itself is lyric-agnostic.)
+
 Add an explicit mandate:
 
 ```
@@ -420,8 +423,11 @@ treatment on top of a genre recipe.
 
 ## Rights and safety
 
-- Use **original music only**. Never reproduce a real artist's copyrighted song
-  in a prompt or as a reference; never write artist-name or copycat prompts.
+- Use **original music by default**. Reproducing a real artist's copyrighted
+  song in a prompt or as a timing reference requires documented permission from
+  the rights holder (the `mv-bryce-vine` project runs under such permission);
+  without it, never reproduce a copyrighted song and never write artist-name
+  or copycat prompts.
 - Voice-cloning a real, named artist's voice requires written consent from the
   artist or estate.
 - Keep `watermark: false` where the tool supports it; enable the AIGC watermark only when the
