@@ -3,8 +3,8 @@ name: seedance-music-video
 description: >-
   Write Seedance 2.5 music-video prompts from a song, artist brief, or requested
   format. Map song sections, beat density, performer intent, camera, lyric timing,
-  native versus supplied audio, and natural scene duration into the six-part
-  formula. Cover rap, dance, performance, narrative, abstract, vertical, and custom
+  the black-sync video timing reference, native versus supplied audio, and natural
+  scene duration into the six-part formula. Cover rap, dance, performance, narrative, abstract, vertical, and custom
   formats. Use for song-driven visual direction, lyric/performance videos, or
   music-video revisions. This prompt-only leaf does not generate media; the caller
   composes only requested specialist axes and owns review and submission.
@@ -20,7 +20,7 @@ and the genre lock visible in the prompt, not just the scene content.
 
 ## Input and output contract
 
-Input: song structure, desired format, performer locks, beat contract, and audio intent.
+Input: song structure, desired format, performer locks, beat contract, audio intent, and the timing-reference mode.
 
 Output: a music-video direction block or complete video prompt.
 
@@ -57,6 +57,12 @@ the three-image sampling default where applicable, and the requested delta.
   (section 3a), hybrid audio mode (section 3), and ASR-based lyric
   verification (section 3c) were derived from three generation takes where
   large `{...}` blocks caused lyric dropouts.
+- **Field-tested black-sync follow-up (t04 vs t03 baseline):** carrying the
+  master inside a pure-black video container as `@Video 1` (section 3)
+  preserved the source waveform through encoding and produced strong
+  transient alignment in the co-generated native audio; adopted as the
+  timing-reference carrier, replacing the standalone `@Audio 1` file
+  entirely. Historical local evidence, not a capability guarantee.
 
 Key third-party sources (accessed 2026-08-20):
 [AI music-video production workflows](https://www.creativeainews.com/articles/how-to-make-ai-music-video-2026/),
@@ -90,7 +96,7 @@ format                 which video type this is (and its direct/indirect address
 song map               each section → visual assignment, energy, and end state
 performance ratio      how much screen time is performer vs atmosphere per section
 beat contract          which audio events the cuts and camera land on
-audio treatment        native audio, or audio-first master used as timing authority
+audio treatment        native audio, or a master carried as the black-sync @Video 1 timing reference
 genre lock             one recipe controlling palette, lighting, camera, and rhythm
 exclusions             only contradictions that would break the format or genre
 ```
@@ -152,12 +158,12 @@ API rules or requirements for every song. Preserve a requested continuous take.
 
 ### 3. Set the audio contract
 
-Choose one of three audio modes; state it explicitly.
+Choose one of two audio modes; state it explicitly.
 
-**Native audio (default).** Seedance co-generates audio and video in one pass.
-Use the bracket syntax in the Audio slot and inside `{...}` for sung or spoken
-lines. Choose exactly one of these patterns — they are mutually exclusive, do
-not combine them:
+**Native audio (default when no master is involved).** Seedance co-generates
+audio and video in one pass. Use the bracket syntax in the Audio slot and
+inside `{...}` for sung or spoken lines. Choose exactly one of these patterns —
+they are mutually exclusive, do not combine them:
 
 ```
 (Soft, rhythmic piano music plays in the background)
@@ -177,37 +183,57 @@ When the clip must sit under an existing master in post, add a direct control
 line so the model does not invent music (the generated file may carry no usable
 track — re-mux the master in assembly).
 
-**Audio-first (only when the user requests lip-synced vocals).** Generate the
-original music and vocal track with Seed Audio first, verify
-`audio_duration ≤ video_duration`, then pass it as a reference and bind it as
-the timing authority:
+**Black-sync video reference (required when the performance follows a supplied
+or Seed Audio master).** Do not send the song as a standalone `@Audio 1` file.
+Embed the track in a **pure-black video container** and send it as `@Video 1` —
+the timing and soundtrack authority. Field evidence (`mv-bryce-vine` t04 vs
+t03) shows the container preserves the source waveform through encoding and
+yields strong transient alignment in the co-generated native audio.
+
+Container preparation is a **user-side step** — this workspace does not
+assemble media. Give the user the recipe:
+
+| Property | Value |
+| --- | --- |
+| Video | pure black frames, H.264 |
+| Resolution / fps | 1920x1080 at 24fps (or match the target output) |
+| Audio | the master segment, muxed as AAC (320 kbps) |
+| Duration | the trimmed track segment (≤30s), ending cleanly on the last word |
+| Container | MP4; audio starts at frame 0 |
+
+```bash
+ffmpeg -f lavfi -i color=c=black:s=1920x1080:r=24 -i master.mp3 \
+  -shortest -c:v libx264 -pix_fmt yuv420p -c:a aac -b:a 320k black-sync.mp4
+```
+
+Bind the container as the timing authority and enable native co-generation
+(`generate_audio: true`):
 
 ```
-@Audio 1 is the exact soundtrack and timing authority. Preserve its music,
-vocals, and pauses; do not add dialogue, narration, music, subtitles, or
-captions.
-Follow the spoken and musical beats in @Audio 1.
-Match <performer>'s visible mouth only to <performer>'s voice in @Audio 1.
+[Timing & Soundtrack Authority]
+@Video 1 provides the exact soundtrack, beat timing, vocal rhythm, and all
+temporal pacing for the entire video. The music, vocals, and pauses in
+@Video 1 define when every visual beat, cut, gesture, and lip movement occurs.
+Match <performer>'s visible mouth only to the vocals in @Video 1.
 ```
 
-The exact sung lines must appear in the Seed Audio prompt and in the Seedance
-prompt inside `{...}` — no paraphrasing, no reordering. If one changes, both
-change. `@Audio N` conditions the timing and lip-sync; the generated file may
-not carry the master as a usable track, so re-mux the original master onto the
-approved video in assembly.
+The exact sung lines must appear in the Seed Audio prompt (when one exists) and
+in the Seedance prompt inside `{...}` — no paraphrasing, no reordering. If one
+changes, both change. The generated soundtrack is a re-performance of the
+reference, not a copy (section 3a); verify lyric coverage (section 3c), and
+when exact soundtrack fidelity is required, have the user re-mux the original
+master onto the approved visuals in the destination workflow. The timestamped
+lyric timeline (section 3b) stays mandatory for dense vocals.
 
-**Hybrid audio (reference + native generation).** When you need both lip-sync
-to a specific track AND a native audio output, combine the two: pass the
-audio master as `reference_audio` (`@Audio 1`) and set `generate_audio: true`.
-The model uses the reference for timing and lip-sync, then generates a native
-audio track that follows (but does not copy) the reference. Lip-sync timing
-is good; audio fidelity is approximate; lyric coverage may drop (use the
-timestamped lyric timeline in section 3b to mitigate). For exact audio
-fidelity, use `generate_audio: false` and re-mux the master.
+**No bare-audio route.** In master-locked mode the song always reaches Seedance
+inside the black-sync container — never as a standalone `@Audio 1` file. If the
+user cannot run the mux, hand them the recipe above first (any basic editor
+works); write the prompt only once the container exists. The timestamped lyric
+timeline (section 3b) and verification (section 3c) apply unchanged.
 
 ### 3a. Native audio caveat: re-performance, not reproduction
 
-When `generate_audio` is enabled with a reference audio, the model
+When `generate_audio` is enabled with the black-sync timing reference, the model
 **re-performs** the track — it does not copy the reference bit-for-bit.
 Treat the generated soundtrack as a candidate to inspect, not an exact copy.
 Retain the supplied master for deterministic assembly when exact fidelity matters.
@@ -272,7 +298,7 @@ Example ASR-to-timeline conversion:
 [17-20 seconds] { ever really took charge like a wiring fee, }
 ```
 
-### 3c. Post-generation lyric verification (for audio-first / native audio)
+### 3c. Post-generation lyric and lip-sync verification (master-locked or native audio)
 
 After generation, verify that the output audio contains all expected lyrics:
 
@@ -283,6 +309,9 @@ After generation, verify that the output audio contains all expected lyrics:
 5. If lines are missing: use the timestamped lyric timeline technique
    (section 3b) and regenerate, OR re-mux the original master if exact
    fidelity is needed
+6. For lip-sync alignment, have the user mux the original master over the
+   generated visuals and check mouth shapes at each timestamp; the
+   destination workflow owns the mux
 
 This step is especially important for:
 - Rap and fast vocal delivery
@@ -422,9 +451,10 @@ Before returning the prompt, verify:
 3. The beat contract names the audio events and their visual relationship.
 4. Restraint, repetition, counterpoint or escalation is justified by the supplied
    track/brief; no chorus, bridge or energy change is invented.
-5. The audio treatment is explicit: native brackets, `@Audio N` timing authority,
-   or hybrid — never ambiguous.
-6. Lip-sync lines appear verbatim in `{...}` and match the audio-first master.
+5. The audio treatment is explicit: native brackets or the black-sync `@Video 1`
+   timing authority — the song never enters as a bare `@Audio 1` input.
+6. Lip-sync lines appear verbatim in `{...}` and match the master inside the
+   black-sync `@Video 1` container.
 7. Dense vocal coverage uses per-line cues; required timing is verified from audio
    or explicitly unresolved. Raw evidence and simplified prompt windows stay separate.
 8. **If `generate_audio` is true:** the prompt accounts for re-performance risk

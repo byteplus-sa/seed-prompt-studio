@@ -16,7 +16,7 @@ they are prompt-composition only and never call the API themselves.
 | Staging / blocking | `tig-blocking-map` | Color-coded outline schematic for character disposition; geometry only, no style bleed |
 | Pacing / rhythm | `seedance-pacing-presets` | Speed ramps and montage pacing; second-level timestamps are opt-in and not frame-accurate |
 | Animation medium & handcrafted style | `seedance-animation-styles` | Material-first Seedance prompts for clay, felt, wood puppets, toys, vintage cel, painterly 2D, crafted 3D, silicone, crayon, and custom media |
-| Music video | `seedance-music-video` | Song-first Seedance prompts: format (performance/narrative/conceptual/lyric/visualizer/hybrid), song-section map, beat/cut-density contract, audio-first lip-sync, and a per-genre style lock |
+| Music video | `seedance-music-video` | Song-first Seedance prompts: format (performance/narrative/conceptual/lyric/visualizer/hybrid), song-section map, beat/cut-density contract, black-sync lip-sync timing reference, and a per-genre style lock |
 | Original music / vocal master, audio-first track | `seed-audio-prompt` | Seed Audio prompt structure (T2A/TA2A) for an original music or vocal master |
 | Audio commercial (story arc, cast, tagline) | `seed-audio-commercial` | Five-act commercial soundscape prompt (dialogue + BGM + SFX + ambience in one pass) with multi-character voice profiles |
 | Storyboard prompts | `template-factory` | Panel-plan storyboard prompts within reference-video reverse engineering; full multi-scene production is out of scope in this workspace |
