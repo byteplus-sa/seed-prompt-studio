@@ -1,10 +1,10 @@
 # Execution Constraints
 
 Cross-cutting Seedance 2.5 constraints that every preset recipe inherits.
-`seedance-prompt-25` owns the prompt grammar and `ark-mcp` owns the tool
-parameters; this file maps where recipes touch them, with the four flagged
-presets resolved in detail. All parameters below are tool/API values — they
-never appear in prompt text.
+`seedance-prompt-25` owns the prompt grammar; the caller owns the tool
+parameters outside this workspace. This file maps where recipes touch them,
+with the four flagged presets resolved in detail. All parameters below are
+tool/API values — they never appear in prompt text.
 
 ## Parameter map
 
@@ -85,7 +85,7 @@ Two supported paths:
   describe the screen or mirror image positively, or attach a deterministic
   mockup as `@Image N`; never expect a rendered UI.
 - **Labels and packaging (eating/product).** Exact text on plates, packaging,
-  and cups is a finishing layer (FFmpeg or HyperFrames), never baked into
+  and cups is added in post by the destination workflow, never baked into
   generation.
 - **Spatial continuity (action).** Name the start point, travel axis,
   boundary, and end state; never demand impossible movement frequencies.

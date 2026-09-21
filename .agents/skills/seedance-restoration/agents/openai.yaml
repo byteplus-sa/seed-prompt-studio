@@ -1,0 +1,4 @@
+interface:
+  display_name: "Seedance Restoration"
+  short_description: "Restoration prompts for aged or damaged footage"
+  default_prompt: "Use $seedance-restoration to write a Seedance 2.5 edit prompt that removes damage from this footage."

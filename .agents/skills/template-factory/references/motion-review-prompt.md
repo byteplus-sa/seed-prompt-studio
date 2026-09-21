@@ -32,12 +32,16 @@ Return JSON only, conforming to motion-review-schema.json. Key every result by
 shot_index.
 ```
 
-## Working from keyframes
+## Working from extracted frames or keyframes
 
-When only keyframes are available, motion must be inferred. Mark every
-inferred motion as an estimate, set confidence to low unless the frames
-clearly bracket a change, and say so in the review. Ask the user to confirm
-or correct the strongest cues before the Seedance prompts depend on them.
+With extracted frames, read the dense motion bursts per shot
+([frame-extraction.md](frame-extraction.md)) so motion is observed across the
+shot; shot boundaries come from measured cuts. With a sparse user keyframe
+set, motion must be inferred — mark every inferred motion as an estimate, set
+confidence to low unless the frames clearly bracket a change, and say so in
+the review. In both cases, motion between sampled frames remains an
+inference: ask the user to confirm or correct the strongest cues before the
+Seedance prompts depend on them.
 
 ## Merge contract
 

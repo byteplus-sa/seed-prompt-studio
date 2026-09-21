@@ -1,11 +1,11 @@
 ---
-description: Sync prompt-composition skills and referenced contracts from the sibling ark-director checkout
+description: Sync prompt-composition skills from the upstream source checkout
 agent: build
 ---
 
-# Sync skills from ark-director
+# Sync skills from the upstream source
 
-Sync this repo's prompt-composition skills from the sibling `ark-director`
+Sync this repo's prompt-composition skills from the upstream skills source
 checkout. Work from this repo's root. Never commit — leave all changes for
 review.
 
@@ -24,39 +24,39 @@ review.
 `ugc-motion-presets`, `color-grade-palettes`, `tig-blocking-map`,
 `tig-scene-engine`
 
-**Referenced contracts — synced on full runs only:**
+**Never sync:**
 
-`rules.json`, `production-policy.md`, `seedance-reference.md`,
-`element-identification.md`, `audio-video-alignment.md`
-
-**Never sync:** `template-factory` (a deliberate prompt-only fork whose content
-diverges from ark-director) and every skill not on the allowlist.
+- `template-factory` and `seed-audio-commercial` — deliberate local forks whose
+  content diverges upstream.
+- Everything under `.agents/contracts/` — locally maintained variants.
+- Every skill not on the allowlist.
 
 ## Arguments
 
 `$ARGUMENTS` — optional space-separated skill names, or `all`. When names are
-present, sync only those skills and skip the contract step; each name must be
-on the allowlist. Empty or `all` syncs the full allowlist plus the contracts.
+present, sync only those skills; each name must be on the allowlist. Empty or
+`all` syncs the full allowlist.
 
 ## Procedure
 
 ### 1. Preflight
 
 ```bash
-SRC="../ark-director"
-test -f "$SRC/.agents/skills/seedance-prompt-25/SKILL.md" && test -f "$SRC/AGENTS.md" \
+SRC="${SKILLS_SOURCE:-../ark-director}"
+test -f "$SRC/.agents/skills/seedance-prompt-25/SKILL.md" \
   && echo "source ok: $SRC" \
-  || { echo "ERROR: ark-director checkout not found at $SRC — stop and report"; exit 1; }
+  || { echo "ERROR: upstream checkout not found at $SRC — stop and report"; exit 1; }
 echo "source revision: $(git -C "$SRC" rev-parse --short HEAD)"
 echo "--- this repo working-tree changes:"
 git status --short
 ```
 
-If the source check fails, stop and report. Never sync from another path. The
-sync copies the source **working tree**, not the committed revision — the
-scope-aware dirty check happens in step 3. If this repo has uncommitted
-changes, warn that the sync diff will mix with them and recommend committing
-or stashing first so the sync is reviewable.
+If the source check fails, stop and report. Never sync from another path
+unless `SKILLS_SOURCE` overrides it. The sync copies the source **working
+tree**, not the committed revision — the scope-aware dirty check happens in
+step 3. If this repo has uncommitted changes, warn that the sync diff will mix
+with them and recommend committing or stashing first so the sync is
+reviewable.
 
 ### 2. Resolve the skill set
 
@@ -69,7 +69,7 @@ ARGS="$ARGUMENTS"
 [ "$ARGS" = "all" ] && ARGS=""
 if [ -z "$ARGS" ]; then
   SKILLS="$ALLOWLIST"
-  echo "full run: 25 skills + 5 contracts"
+  echo "full run: 25 skills"
 else
   SKILLS="$ARGS"
   for s in $SKILLS; do
@@ -78,7 +78,7 @@ else
       *) echo "ERROR: $s is not allowlisted — stop and report"; exit 1 ;;
     esac
   done
-  echo "scoped run: $SKILLS (contracts skipped)"
+  echo "scoped run: $SKILLS"
 fi
 ```
 
@@ -90,7 +90,6 @@ dirty path intersects the sync scope:
 ```bash
 SCOPE_PATHS=""
 for s in $SKILLS; do SCOPE_PATHS="$SCOPE_PATHS .agents/skills/$s"; done
-[ -z "$ARGS" ] && SCOPE_PATHS="$SCOPE_PATHS .agents/contracts"
 echo "--- dirty source paths intersecting the sync scope:"
 git -C "$SRC" status --short -- $SCOPE_PATHS
 ```
@@ -99,7 +98,7 @@ git -C "$SRC" status --short -- $SCOPE_PATHS
   sync; report them informationally in the summary.
 - **Non-empty output** — list the intersecting files and ask the user to
   confirm before continuing. The sync would copy unreviewed in-progress work
-  from ark-director.
+  from the upstream checkout.
 
 ### 4. Diff and sync each skill
 
@@ -120,25 +119,10 @@ done
 
 `rsync --delete` mirrors the source bundle, so renamed or removed reference
 files disappear here too. Every destination directory must already exist;
-never create a new skill directory from a sync.
+never create a new skill directory from a sync. Do not modify anything under
+`.agents/contracts/`.
 
-### 5. Sync the referenced contracts (full runs only)
-
-```bash
-if [ -z "$ARGS" ]; then
-  for c in rules.json production-policy.md seedance-reference.md \
-           element-identification.md audio-video-alignment.md; do
-    if cmp -s "$SRC/.agents/contracts/$c" ".agents/contracts/$c"; then
-      echo "unchanged  contracts/$c"
-    else
-      echo "updated    contracts/$c"
-      cp "$SRC/.agents/contracts/$c" ".agents/contracts/$c"
-    fi
-  done
-fi
-```
-
-### 6. Verify the result
+### 5. Verify the result
 
 Frontmatter names must match their directories:
 
@@ -157,10 +141,7 @@ print('frontmatter ok' if ok else 'frontmatter problems above')
 PY
 ```
 
-Relative links must resolve. Two dangling links are the known baseline
-(`element-identification.md` and `production-policy.md` point at the
-html-graphic-render schema, which this workspace intentionally omits). Report
-anything beyond those two:
+Relative links must resolve. Report every dangling link as a problem:
 
 ```bash
 python3 - <<'PY'
@@ -168,7 +149,7 @@ import re, pathlib
 root = pathlib.Path('.').resolve()
 bad = []
 for doc in root.rglob('*.md'):
-    if '.git' in doc.parts:
+    if '.git' in doc.parts or 'node_modules' in doc.parts:
         continue
     for n, line in enumerate(doc.read_text().splitlines(), 1):
         for raw in re.findall(r'\]\(([^)]+)\)', line):
@@ -177,7 +158,7 @@ for doc in root.rglob('*.md'):
             rel = raw.split('#')[0].strip('<>')
             if rel and not (doc.parent / rel).resolve().exists():
                 bad.append(f'{doc.relative_to(root)}:{n} -> {raw}')
-print(f'dangling links: {len(bad)} (known baseline: 2)')
+print(f'dangling links: {len(bad)}')
 for b in bad:
     print(' ', b)
 PY
@@ -189,10 +170,10 @@ No stray artifacts:
 find .agents \( -name '.DS_Store' -o -name '__pycache__' \) | wc -l
 ```
 
-### 7. Report
+### 6. Report
 
-Summarize as a table: skill or contract | unchanged / updated | files that
-changed. Then include:
+Summarize as a table: skill | unchanged / updated | files that changed. Then
+include:
 
 - The source revision hash from the preflight.
 - `git status --short` and `git diff --stat` so the user can review the sync

@@ -45,7 +45,7 @@ For an unlisted format or genre:
 
 1. Identify the format's address mode (direct, indirect, or none).
 2. Define the song map: which sections carry what visual energy.
-3. Choose the audio treatment (native vs audio-first) and the beat contract.
+3. Choose the audio treatment (native vs master-locked — the song always enters as the black-sync `@Video 1`) and the beat contract.
 4. Name the genre lock: palette, lighting, camera grammar, and motion cadence.
 5. Define the performance-to-atmosphere ratio per section.
 6. Write a format-first opening and a compact style seal.

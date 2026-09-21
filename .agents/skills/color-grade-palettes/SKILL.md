@@ -3,11 +3,13 @@ name: color-grade-palettes
 description: >
   Map a named color grade palette or film look into a canonical grade sentence
   for the Seedance 2.5 Visual Style slot or the Seedream Style: section, with
-  an optional matching FFmpeg filter graph for cross-shot matching. Use this
+  an optional post-grade filter expression for cross-shot matching in the
+  destination workflow. Use this
   skill for color grading, palette selection, look and grade choices, teal and
   orange, bleach bypass, film looks, LUT-style grades, and cinematic grades.
-  The prompt grade is the source of truth; FFmpeg is only for matching in the
-  mix step. Golden hour here means the warm grade palette; for golden-hour
+  The prompt grade is the source of truth; the filter expression is only for
+  matching in the destination workflow. Golden hour here means the warm grade
+  palette; for golden-hour
   physical lighting (sun position and light), use seedance-lighting-presets.
 ---
 
@@ -16,14 +18,14 @@ description: >
 This skill turns a named color grade palette or film look into a **canonical
 grade sentence** that drops into the **Seedance 2.5 Visual Style slot** of the
 six-part formula, or into the **Seedream `Style:` section**. It is
-**prompt-composition only** — it does not call any MCP or API tools, and it
-never runs a generation. When `post_grade` is requested it also emits a short
-**FFmpeg filter graph**, used for cross-shot matching in the mix step only.
+**prompt-composition only** — it never calls any tools and never runs a
+generation. When `post_grade` is requested it also emits a short filter
+expression for cross-shot matching in the destination workflow.
 
 > **The prompt grade is the source of truth.** The grade is baked into the
-> prompt at generation time. An FFmpeg re-grade is never an alternative to the
+> prompt at generation time. A filter-based re-grade is never an alternative to the
 > prompt grade — it only matches or refines a baked-in grade so separate takes
-> of the same palette line up in the mix.
+> of the same palette line up in the destination workflow.
 
 ## Source authority
 
@@ -88,7 +90,7 @@ highlights) when the scene requires it.
 | `palette` | string (required) | A palette name from the bank, or a plain descriptive grade with no invented film name |
 | `target_model` | `seedance` \| `seedream` \| `both` | Where the grade sentence lands: Visual Style slot, `Style:` section, or both |
 | `reference` | optional string | A style-reference image; the grade is expressed as `use the muted palette, soft grain, diffused highlights of @Image N` |
-| `post_grade` | optional bool | When true, also emit a matching FFmpeg filter graph for the mix step |
+| `post_grade` | optional bool | When true, also emit a matching post-grade filter expression for the destination workflow |
 
 ## Output grammar
 
@@ -160,30 +162,30 @@ translate its look into prompt language:
 The grade words it contributes still live in the Visual Style slot (Seedance)
 or `Style:` section (Seedream).
 
-### Optional FFmpeg filter graph (post_grade)
+### Optional post-grade filter expression (post_grade)
 
 Emitted only when `post_grade` is true, and **only for cross-shot matching in
-the mix step — never re-grade against a baked-in prompt grade**. The prompt
-grade is canonical; these graphs nudge separately generated takes of the same
-palette to match each other. The FFmpeg filter graphs can be executed with the
-`ffmpeg` skill at the caller's discretion in the mix step.
+the destination workflow — never re-grade against a baked-in prompt grade**. The prompt
+grade is canonical; these expressions nudge separately generated takes of the
+same palette to match each other. Executing them is the caller's job in the
+destination workflow.
 
 Teal & Orange Epic:
 
 ```
-ffmpeg -i in.mp4 -vf "colorbalance=rs=.05:bs=.06,eq=contrast=1.06:saturation=1.12,vignette=angle=PI/5" -c:a copy out.mp4
+-vf "colorbalance=rs=.05:bs=.06,eq=contrast=1.06:saturation=1.12,vignette=angle=PI/5"
 ```
 
 Bleach Bypass:
 
 ```
-ffmpeg -i in.mp4 -vf "curves=all='0/0 0.5/0.62 1/1',eq=saturation=0.55:contrast=1.15,noise=alls=8:allf=t" -c:a copy out.mp4
+-vf "curves=all='0/0 0.5/0.62 1/1',eq=saturation=0.55:contrast=1.15,noise=alls=8:allf=t"
 ```
 
 Kodak Portra 400:
 
 ```
-ffmpeg -i in.mp4 -vf "eq=contrast=0.95:saturation=1.02,colorbalance=rs=.03:bm=-.03,noise=alls=5:allf=t" -c:a copy out.mp4
+-vf "eq=contrast=0.95:saturation=1.02,colorbalance=rs=.03:bm=-.03,noise=alls=5:allf=t"
 ```
 
 ## Edge cases / guardrails
@@ -197,8 +199,8 @@ ffmpeg -i in.mp4 -vf "eq=contrast=0.95:saturation=1.02,colorbalance=rs=.03:bm=-.
 - **B&W needs explicit language.** "Black and white" alone is not enough —
   use contrast, silver mid-tones, and grain phrasing (e.g. Classic B&W or
   Ilford HP5) so the result is not flat gray.
-- **Prompt grade is the source of truth.** An FFmpeg re-grade is only for
-  matching/refinement in the mix step, never a substitute for the prompt grade
+- **Prompt grade is the source of truth.** A filter-based re-grade is only for
+  matching/refinement in the destination workflow, never a substitute for the prompt grade
   and never applied against a differently graded take.
 - **Film-stock words belong in `Style:` / visual style**, not in the subject
   line. Put the grade sentence in its slot and keep subject descriptions
@@ -220,5 +222,5 @@ ffmpeg -i in.mp4 -vf "eq=contrast=0.95:saturation=1.02,colorbalance=rs=.03:bm=-.
 4. No conflicting color words appear elsewhere in the prompt.
 5. B&W palettes include explicit contrast / silver / grain language, not just "black and white".
 6. Film-stock keywords appear only in `Style:` / visual style, never in the subject description.
-7. An FFmpeg filter graph appears only when `post_grade` is requested, and it is labeled as matching-only in the mix step.
+7. A post-grade filter expression appears only when `post_grade` is requested, and it is labeled as matching-only in the destination workflow.
 8. When grading across a chained scene sequence, the same grade phrase repeats verbatim in every scene.

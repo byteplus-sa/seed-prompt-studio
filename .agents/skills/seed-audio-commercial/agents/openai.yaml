@@ -1,0 +1,4 @@
+interface:
+  display_name: "Seed Audio Commercial"
+  short_description: "Compose dramatic, story-driven audio commercial prompts for Seed Audio"
+  default_prompt: "Use $seed-audio-commercial to write this audio commercial prompt."

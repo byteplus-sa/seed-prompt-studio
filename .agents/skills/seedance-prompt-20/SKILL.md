@@ -339,7 +339,7 @@ variants, and approval states in the shot manifest before submission.
 | Seedance 2.0 Fast | `dreamina-seedance-2-0-fast-260128` |
 | Seedance 2.0 Mini | `dreamina-seedance-2-0-mini-260615` |
 
-Model IDs are version-dated and change on release. Always copy the live ID from the [Model list](https://docs.byteplus.com/en/docs/ModelArk/1330310) (Video generation section) or the console model-activation page before making API calls.
+Model IDs are version-dated and change on release. Always copy the live ID from the [Model list](https://docs.byteplus.com/en/docs/ModelArk/1330310) (Video generation section) or the console model-activation page before finalizing the parameter block.
 
 ### Reproducibility
 - `seed`: pin the seed once a look is approved to reproduce the same visual family.
@@ -348,7 +348,7 @@ Model IDs are version-dated and change on release. Always copy the live ID from 
 
 ### Prompt limits
 - BytePlus recommends keeping prompts under 1,000 words so information stays focused. This is a quality recommendation, not a hard API rejection threshold; exceed it when necessary for coherent direction, then edit for focus.
-- The current local ModelArk MCP tool accepts up to 32,000 characters. Treat that as the hard client-side ceiling unless the live API or tool validator changes.
+- The prompt ceiling is 32,000 characters per prompt. Treat that as the hard ceiling unless the live model documentation changes.
 - Languages: English, Chinese, Japanese, Indonesian, Spanish, Portuguese (Seedance 2.0).
 
 ### Output resolutions and duration

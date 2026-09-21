@@ -131,10 +131,10 @@ shot, ensuring visual continuity across cuts.
 
 ```mermaid
 flowchart LR
-    S1[Source clip 1] -->|seedance_create_task, return_last_frame=true| V1[VFX shot 1]
+    S1[Source clip 1] -->|paste with return_last_frame=true| V1[VFX shot 1]
     V1 -->|last frame| F1[First frame for shot 2]
     F1 -->|first_frame role| S2[Source clip 2 / first frame]
-    S2 -->|seedance_create_task| V2[VFX shot 2]
+    S2 -->|paste as next shot| V2[VFX shot 2]
     V2 -->|last frame| F2[First frame for shot 3]
 ```
 
@@ -151,4 +151,4 @@ prior shot (Woman standing in @neon-alley). She turns and walks toward camera,
 > **Seedance 2.5 alternative**: For pure extension tasks (no VFX change, just
 > extending a clip), Seedance 2.5's native forward/backward extension can replace
 > the manual `return_last_frame` chaining above. Use `seedance-prompt-25` with
-> the 2.5 model (`dreamina-seedance-2-5-260628`) and `seedance_2_5_create_task`.
+> the 2.5 model (`dreamina-seedance-2-5-260628`).

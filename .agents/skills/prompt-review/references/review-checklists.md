@@ -16,7 +16,7 @@ sub-agent along with the prompt text.
 - [Seedream image generation](#seedream-image-generation)
 - [Seedream character sheet](#seedream-character-sheet)
 - [Seedream location asset](#seedream-location-asset)
-- [Seedream storyboard](#seedream-storyboard)
+- [Storyboard prompts](#storyboard-prompts)
 - [Seedance music video](#seedance-music-video)
 
 ---
@@ -56,7 +56,8 @@ change the production policy. Source metadata: `rule-provenance.json`.
 
 6. **Parameters in the API, not the prompt.** Generation parameters (duration,
    resolution, aspect ratio) are not embedded in the prompt text unless the skill's
-   structure explicitly includes them. They belong in the API call.
+   structure explicitly includes them. They belong in the submitted parameters,
+   never in the prompt text.
 
 7. **Prompt snapshot location.** The prompt is saved beside the media asset it
    produced, using the `prompt_` prefix convention. It is not duplicated in shot
@@ -816,7 +817,7 @@ Source skill: `seed-audio-prompt`
 51. **Shot timestamps align to audio.** Seedance shot time ranges match actual audio
     timing.
 
-52. **Audio as reference_audio.** Passed to Seedance task as `reference_audio`.
+52. **Audio as reference_audio.** Delivered as the ordered `reference_audio` binding (`@Audio 1`).
 
 ### Brand-name pronunciation
 
@@ -1068,16 +1069,16 @@ Source skill: `seedream-location-asset`
 
 ---
 
-## Seedream storyboard
+## Storyboard prompts
 
-Source skill: `seedream-storyboard`
+Source: storyboard prompt conventions in this workspace
 
 ### Core rules
 
 1. **One frozen, decisive moment per panel.** Not a collage or multi-panel grid.
 
-2. **Dynamic panel count.** When an upstream analysis (`seed_understand`,
-   `tig-scene-engine`, `film-production`, or a script/beat sheet) has identified
+2. **Dynamic panel count.** When an upstream analysis (a video or frame pass,
+   `tig-scene-engine`, or a script/beat sheet) has identified
    N scenes/shots, the board defaults to one panel per identified scene/shot —
    not a fixed budget. A user-specified smaller count is honored only when
    explicit, with omitted shots recorded as motion notes.
@@ -1147,8 +1148,9 @@ Source skill: `seedream-storyboard`
 
 ### Revisions
 
-22. **Local edits preferred.** After a composition is approved, prefer local edits over
-    full re-generation.
+22. **Regeneration preferred.** After a composition is approved, prefer a revised
+    prompt over re-authoring from scratch; tool-based pixel cleanup is out of
+    scope in this workspace.
 
 23. **Seeds for tracking.** Used for experiment tracking, not as the identity system.
 

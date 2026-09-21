@@ -6,10 +6,10 @@ description: >
   reasons; offer two distinct treatments during exploration or a compact
   proposal when direction is settled. Confirm only decisions that need a lock.
   When the brief cites real brand video ads or other footage for visual or motion
-  inspiration, record that reference and hand off media acquisition plus
-  seed_understand or template-factory — do not treat scripts or article text as
-  the reference. Use for a new project or a scoped brief revision. Never
-  generates media.
+  inspiration, record that reference and hand off to template-factory for
+  analysis (agent video pass, or local frame extraction when the video cannot be
+  watched) — do not treat scripts or article text as the reference. Use for a
+  new project or a scoped brief revision. Never generates media.
 ---
 
 # Brief Intake
@@ -41,12 +41,14 @@ Read the supplied brief and existing confirmed decisions first. Extract:
 When a tone or genre reference is a **concrete brand video ad or other footage**
 (URL, campaign name, or user-supplied file) meant for visual or motion
 inspiration, record it under constraints or creative intent and **hand off** —
-this skill does not download or analyze media. Downstream work must obtain
-watchable media (prefer a public HTTPS URL that `seed_understand` accepts;
-download and upload only when that link is unusable) via `template-factory` for
-full reverse-engineering or `ark-mcp` (`seed_understand`) for a lighter
-pass. Transcripts, scripts, and article write-ups may note claims or dialogue
-but must not replace watching the video.
+this skill does not fetch or analyze media. Downstream work needs a watchable
+copy (the user's file, or a link the user can open) and analyzes it in one of
+two modes: an **agent video pass** when the client can watch the video, or
+**local frame extraction** (`ffmpeg`/`ffprobe`) read as images when it cannot —
+the normal case. Route full reverse-engineering through `template-factory`; a
+lighter "what is this ad doing visually?" pass uses the same two modes.
+Transcripts, scripts, and article write-ups may note claims or dialogue but must
+not replace watching the video.
 
 An absent genre is not a blocker. If intent is clear, derive a proposal from it.
 Ask a focused question only when missing information materially changes the
@@ -95,7 +97,7 @@ an exhaustive preset stack.
 | Pacing | Give the action enough time; stillness, repetition, contrast, and escalation are choices | `seedance-pacing-presets` |
 | Staging | Define geography only when action or relationships depend on it | `tig-blocking-map` |
 | Medium | Preserve requested medium; propose only when the idea benefits from that choice | `seedance-animation-styles` |
-| Audio | Honor silent/native/soundtrack requests; separate lip-sync audio remains opt-in | `seed-audio-prompt` / `seed-audio-commercial` |
+| Audio | Honor silent/native/soundtrack requests; separate lip-sync audio remains opt-in | `seed-audio-prompt` |
 
 These hints do not require loading sibling skills. Never require acting for a
 product-only still, a camera move for an audio brief, or a speed ramp because a

@@ -24,7 +24,7 @@ Final Section (<verified time range or event cue>): <closing assignment and fina
 <Which audio events the cuts and camera land on; cut density per section.>
 
 [Audio Treatment]
-<Native audio brackets, or the @Audio N timing-authority binding for audio-first.>
+<Audio treatment: native audio brackets, or the black-sync @Video 1 timing authority — the song never enters as bare @Audio 1.>
 
 [Genre Lock]
 <Palette, lighting, camera grammar, motion cadence, and tone.>
@@ -38,11 +38,12 @@ Final Section (<verified time range or event cue>): <closing assignment and fina
 Use when the user asks for a complete prompt:
 
 ```text
-[Audio First] (only when lip-synced vocals are requested)
-@Audio 1 is the exact soundtrack and timing authority. Preserve its music,
-vocals, and pauses; do not add dialogue, narration, music, subtitles, or
-captions. Match <performer>'s visible mouth only to <performer>'s voice in
-@Audio 1.
+[Timing & Soundtrack Authority] (only when the performance follows a master)
+@Video 1 is the black-sync container — the master muxed into pure-black video.
+It provides the exact soundtrack, beat timing, vocal rhythm, and all temporal
+pacing. Match <performer>'s visible mouth only to the vocals in @Video 1.
+(Prerequisite: the user prepares the container first — the song never enters
+as a bare @Audio 1 input.)
 
 [Reference Roles] (only when references exist)
 @Image 1 defines <performer>'s <appearance, wardrobe, or identity>.
@@ -52,14 +53,22 @@ captions. Match <performer>'s visible mouth only to <performer>'s voice in
 The visuals feature <genre lock: palette, lighting, lens, grade, look>.
 Use <shot sizes, camera moves, and cuts>, with <beat contract>.
 Audio includes <(music)> <{sung lines}> <sound effects>.
-Audio: <@Audio N timing binding, or native brackets>. For rap or fast vocals,
-       use verified per-line timing when available, otherwise ordered cues: <[X-Ys] { line }> per line with a
-       "no line skipped" mandate (see section 3b).
+Audio: <black-sync @Video 1 authority or native brackets>.
 
 [Shot Plan] or [Stage Plan]
-Shot 1 (<time range>): <one event and visible end state>.
-Shot 2 (<time range>): <one event and visible end state>.
-Final Shot (<time range>): <closing event and final visible state>.
+Shot 1 (<time range>): @Image <N> only — <location or subject>; <one event and
+visible end state>.
+Shot 2 (<time range>): @Image <N> only — <location or subject>; <one event and
+visible end state>.
+Final Shot (<time range>): @Image <N> only — <closing event and final visible
+state>.
+Scope each shot to its own references ("@Image N only") so no location or look
+bleeds across a cut.
+
+[Lip-Sync & Lyric Timing] (only when lip-synced vocals are requested)
+<Performer>'s mouth shapes align to every syllable. Perform every line in full,
+in order, at its beat slot — no line skipped, shortened, mumbled, or reordered.
+<X>-line timestamped timeline (<start>s–<end>s): <[X-Ys] { line }> per line.
 
 [Maintain Consistency]
 Keep <performer identity, wardrobe, venue, camera grammar, and audio>

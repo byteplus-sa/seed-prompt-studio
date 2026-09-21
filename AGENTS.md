@@ -7,9 +7,11 @@ prompts; it never generates, uploads, or persists media.
 ## Scope and authority
 
 This workspace produces copy-paste prompt blocks. The user pastes them into
-Lumina or another Seed-model UI. There is no MCP server, Ark CLI, generation
-transport, deterministic HTML renderer, HyperFrames, Blender, or FFmpeg here —
-those live in the ark-director workspace and are out of scope.
+Lumina or another Seed-model UI, where generation happens. There is no
+generation transport of any kind here — no model API access, no agent tool
+servers, no command-line generation. Deterministic rendering, 3D, and assembly
+capabilities are out of scope in this standalone workspace. Local
+`ffmpeg`/`ffprobe` are permitted for read-only analysis frame extraction only.
 
 Deliver prompts in chat by default. Save a draft under
 `projects/<name>/prompts/` only when the user explicitly asks.
@@ -31,6 +33,7 @@ Load only the contract relevant to the current request:
 | Prompt review policy and stable rule IDs | [rules.json](.agents/contracts/rules.json) and [production policy](.agents/contracts/production-policy.md) |
 | Requested camera, lens, lighting, grade, acting, pacing, blocking, medium axes | [Directorial axes](.agents/contracts/seedance-reference.md) |
 | Canon, props, screens and reference roles | [Element identification](.agents/contracts/element-identification.md) |
+| Dialogue synchronization and assembly | [Audio-video alignment](.agents/contracts/audio-video-alignment.md) |
 
 ## Routing
 
@@ -47,10 +50,11 @@ requested choreography needs more.
 | Filipino/Tagalog dialogue direction | `seedance-prompt-25-filipino` |
 | Acting direction and emotional intensity | `seedance-acting-console` |
 | Camera / lens / lighting / pacing presets | `seedance-camera-presets`, `seedance-lens-presets`, `seedance-lighting-presets`, `seedance-pacing-presets` |
-| Animation styles / graybox world | `seedance-animation-styles`, `seedance-graybox-world` |
+| Animation styles / Blender-video edit prompts | `seedance-animation-styles`, `seedance-graybox-world` |
 | Motion design / music video / restoration / VFX edit prompts | `seedance-motion-design`, `seedance-music-video`, `seedance-restoration`, `seedance-vfx-prompt` |
 | Seedream image prompts, character sheets, location plates | `seedream-prompt`, `seedream-character-sheet`, `seedream-location-asset` |
 | Seed Audio prompts | `seed-audio-prompt` |
+| Audio commercial prompts (story arc, cast, tagline) | `seed-audio-commercial` |
 | UGC ad modes / UGC motion presets | `ugc-ad-modes`, `ugc-motion-presets` |
 | Color grade sentence | `color-grade-palettes` |
 | Scene structure / staging references | `tig-scene-engine`, `tig-blocking-map` |
@@ -64,10 +68,13 @@ specialists needed for the current request. `template-factory` is this
 workspace's declared orchestrator for reference-video reverse engineering; it
 sequences the prompt leaves and the `prompt-review` gate.
 
-This workspace ships prompt-composition skills only. Generation pipelines
-(film-production, template-factory, seedance-vfx-pipeline, showcase-html,
-html-graphic-render, hyperframes, blender-*, ark-mcp, ffmpeg, media-*) are
-not installed here; do not attempt their workflows.
+This workspace ships prompt-composition skills only. Generation pipelines,
+deterministic-graphics renderers, 3D/animation tooling, and media-processing
+skills are not installed here; do not attempt their workflows. Local
+`ffmpeg`/`ffprobe` are analysis-only — never generation, assembly, or
+transcoding. Delivered recipes that mention such tools (e.g. a mux step in a
+music-video handoff) are user-side destination-workflow material, not agent
+actions.
 
 Keep skill metadata concise and valid YAML. Move substantial conditional
 modes and examples into focused same-skill references.
@@ -79,6 +86,9 @@ modes and examples into focused same-skill references.
   reviewer output is incomplete.
 - Freeze the exact prompt text before handoff; changed inputs invalidate
   review.
+- Source video is inspected by an agent video pass when the client can watch
+  it, or by local `ffmpeg`/`ffprobe` frame extraction read as images when it
+  cannot; never claim to have watched footage you could not access.
 - Preserve exact canonical descriptors where applicable. Prefer positive,
   observable direction; necessary edit-scope exclusions are allowed.
 - Identify all visible props; only threshold-qualified props need locked
@@ -91,8 +101,7 @@ modes and examples into focused same-skill references.
 - Moderation rejection is evidence to diagnose, not proof of a false
   positive. Revisions remain legitimate and authorized.
 - Exact-copy, typography, logo, UI, and deterministic HTML/CSS/SVG work is
-  out of scope; hand such requests back to the ark-director workspace rather
-  than improvising a prompt.
+  out of scope; say so rather than improvising a prompt.
 
 ## Local state and naming
 
@@ -103,6 +112,8 @@ staging target.
 | --- | --- |
 | `projects/<project>/project.md` | Optional brief and confirmed choices |
 | `projects/<project>/prompts/prompt_<asset-stem>.md` | Saved prompt drafts, immutable after handoff |
+| `projects/<project>/elements/<element-id>/` | Optional element prompt records and acquired-asset provenance |
+| `projects/<project>/frames/` | Analysis-only frame-extraction scratch; never a deliverable |
 
 Folders and IDs use lowercase kebab-case. Prompt snapshots are saved only on
 explicit request; chat-only is the default.
@@ -122,7 +133,6 @@ never revert or discard work you did not create.
 `git diff --check`; this workspace ships no code, so unit, lint, type, and
 build checks are not applicable.
 
-Shared skills are maintained upstream in the ark-director workspace and pulled
-in with `/sync-skills` (see README Maintenance). The command never overwrites
-the local `template-factory` fork and leaves its changes uncommitted for
-review.
+Shared skills are maintained in an upstream source checkout and pulled in with
+`/sync-skills` (see README Maintenance). The command never overwrites the local
+`template-factory` fork and leaves its changes uncommitted for review.

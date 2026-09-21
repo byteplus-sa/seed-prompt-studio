@@ -63,14 +63,14 @@
     },
     {
       "id": 6,
-      "prompt": "Write a Seedance 2.5 prompt for the teal-and-orange grade on a two-take scene, and emit the matching FFmpeg filter graph for cross-shot matching in the mix step.",
-      "expected_output": "A Seedance prompt with the teal-and-orange grade in the visual style slot plus a labeled FFmpeg filter graph for matching only, not a replacement for the prompt grade.",
+      "prompt": "Write a Seedance 2.5 prompt for the teal-and-orange grade on a two-take scene, and emit the matching post-grade filter expression for cross-shot matching in the destination workflow.",
+      "expected_output": "A Seedance prompt with the teal-and-orange grade in the visual style slot plus a labeled filter expression for matching only, not a replacement for the prompt grade.",
       "files": [],
       "expectations": [
         "The output includes the teal-and-orange grade sentence in the visual style slot.",
-        "The output emits an ffmpeg -i ... -vf ... command for the teal-and-orange palette.",
-        "The output labels the FFmpeg graph as matching-only in the mix step, not as a re-grade of the prompt.",
-        "The output does not put FFmpeg commands inside the model prompt text."
+        "The output emits a filter expression for the teal-and-orange palette.",
+        "The output labels the filter expression as matching-only in the destination workflow, not as a re-grade of the prompt.",
+        "The output does not put filter commands inside the model prompt text."
       ]
     },
     {

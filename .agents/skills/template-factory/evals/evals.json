@@ -42,12 +42,25 @@
     {
       "id": 4,
       "prompt": "The reference has a product end card with the exact logo and price. Include that in the prompts.",
-      "expected_output": "The factory states exact typography, logos, price, and CTA treatments are out of scope in this workspace and hands that element back to the ark-director workspace instead of improvising a prompt.",
+      "expected_output": "The factory states exact typography, logos, price, and CTA treatments are out of scope in this workspace and declines to improvise a prompt for that element.",
       "files": [],
       "assertions": [
         "No Seedream or Seedance prompt is authored to reproduce the exact logo, price, or CTA layout.",
-        "The out-of-scope element is explicitly handed back to the ark-director workspace.",
+        "The out-of-scope element is explicitly flagged as out of scope.",
         "The remaining prompt package still proceeds for the in-scope elements."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Here's the video file at ~/Downloads/reference-ad.mp4. Build the full prompt package.",
+      "expected_output": "Frame extraction with local ffmpeg: probed duration and resolution, measured scene-cut boundaries, per-shot frames and motion bursts read as images, a breakdown with measured timing, audio set to explicit unknowns unless the user supplies notes, and the full prompt package through prompt-review.",
+      "files": [],
+      "assertions": [
+        "The agent checks for ffmpeg/ffprobe availability before choosing the extraction mode.",
+        "Shot boundaries are measured via scene detection rather than estimated.",
+        "Extracted frames stay in projects/<project>/frames/, are never uploaded, and are never bound as @Image N references.",
+        "Audio fields are explicit unknowns with the package flagged audio-unverified when the user provides no transcript or notes.",
+        "The agent does not claim to have watched the video continuously; motion between sampled frames is labeled as inference."
       ]
     }
   ]

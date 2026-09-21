@@ -103,6 +103,9 @@ Generation mode and request limits belong in request metadata or validation, not
 
 ## Related skills
 
-- `seed-audio-commercial` — dramatic, story-driven audio commercials
-- `audio-dubbing` — dubbing pipeline with voice cloning (TA2A)
-- `audio-split` — reference audio segmentation for ≤30s clips
+- `seed-audio-commercial` — dramatic, story-driven audio commercial prompts
+  (five-act arc, commercial SFX/music patterns, worked examples)
+
+Commercial production generation management, dubbing, and reference-audio
+splitting are workflows outside this workspace. This skill covers the prompt
+layer for full-soundscape audio, including commercial-style composition.

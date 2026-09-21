@@ -65,8 +65,9 @@ For character sheets, identity sheets, turnaround sheets, or Seedance-facing
 character references, prefer the sibling `seedream-character-sheet` skill rather
 than embedding that workflow here.
 
-If the generated character sheet later needs duplicate-face cleanup, optionally
-compose with the companion `seedream-character-sheet-cleanup` skill.
+If the generated character sheet later needs duplicate-face cleanup, regenerate
+it from a revised prompt; local image-edit tools are out of scope in this
+workspace.
 
 ## Deterministic graphic boundary
 
@@ -76,7 +77,7 @@ CTA, product order, or pixel geometry carries the deliverable, create or select
 the text-free image layer here and finish the exact graphic through a
 deterministic HTML-entrypoint route. Do not ask Seedream to recreate a layout that
 the caller can render exactly. A hybrid keeps this generated layer's prompt,
-review, task, selection, and hash evidence separately from the deterministic
+review, selection, and hash evidence separately from the deterministic
 render record.
 
 ## Usage tips

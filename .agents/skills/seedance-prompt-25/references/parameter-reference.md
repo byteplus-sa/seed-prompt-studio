@@ -17,9 +17,9 @@ mode selection and caller responsibilities.
 | Seedance 2.0 Fast (legacy) | `dreamina-seedance-2-0-fast-260128` |
 | Seedance 2.0 Mini (legacy) | `dreamina-seedance-2-0-mini-260615` |
 
-**MCP tools:** `seedance_2_5_create_task` (submit), `seedance_get_task` (shared 2.0/2.5 poll), `seedance_list_tasks` / `seedance_cancel_or_delete_task` (shared with 2.0).
+**Submission boundary:** this workspace writes prompts only — the user pastes the prompt and the parameter block into the destination UI. Every parameter in this reference is a submission value, never prompt text.
 
-> The model ID `dreamina-seedance-2-5-260628` is live on BytePlus ModelArk. Confirm the current ID on the [Model list](https://docs.byteplus.com/en/docs/ModelArk/1330310) before making API calls.
+> The model ID `dreamina-seedance-2-5-260628` is live on BytePlus ModelArk. Confirm the current ID on the [Model list](https://docs.byteplus.com/en/docs/ModelArk/1330310) before finalizing the parameter block.
 
 ### Reference limits
 

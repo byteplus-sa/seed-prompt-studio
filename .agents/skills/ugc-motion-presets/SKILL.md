@@ -15,8 +15,8 @@ description: >
 This skill turns a named UGC motion preset into a canonical, drop-in
 prompt block for Seedance 2.5: the preset's motion grammar (timestamped action,
 camera treatment, audio direction) plus reference bindings, duration, and
-constraint flags. It is a **prompt-composition-only** skill: it never calls MCP
-tools or the Ark API, and it never runs generation. The base grammar — the
+constraint flags. It is a **prompt-composition-only** skill: it never calls
+any tools, and it never runs generation. The base grammar — the
 six-part formula, `@Image N` / `@Video N` reference-role syntax, `At Ns`
 timestamp syntax, and audio bracket syntax — is defined in
 `seedance-prompt-25` and is **not redefined here**.
@@ -83,7 +83,7 @@ Every recipe in [motion-presets.md](references/motion-presets.md) provides:
 - Keep every Flag visible in the composed prompt or the pre-submission notes;
   flags encode real provider constraints, not style advice.
 - Duration, resolution, ratio, and watermark are generation parameters — they
-  stay in the API call, never in the prompt text.
+  stay in the parameter block, never in the prompt text.
 - Acting intensity is expressed through observable physical cues, never degree
   adjectives; compose with `seedance-acting-console` when the emotion needs
   deeper cue work.
@@ -96,8 +96,8 @@ Every recipe in [motion-presets.md](references/motion-presets.md) provides:
 Defaults for UGC placement, stated as defaults rather than rules:
 
 - **9:16 vertical** unless the request specifies another ratio.
-- **Design for sound-off legibility.** Captions and on-screen text are a
-  finishing layer (FFmpeg or HyperFrames) — never baked into generated video.
+- **Design for sound-off legibility.** Captions and on-screen text are
+  added in post by the destination workflow — never baked into generated video.
 - **Brand or product visible early** in the first seconds of the cut.
 - **AIGC disclosure** applies when delivering AI-generated content as ads
   (TikTok manual tag; Meta auto-labeling). Remind the caller at delivery.

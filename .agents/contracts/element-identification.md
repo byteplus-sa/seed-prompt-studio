@@ -34,7 +34,7 @@ When the brief authorizes a real brand, logo, packshot, or labeled product:
 1. **Reuse** an existing project asset if its content hash still matches the
    needed identity.
 2. **Acquire** an official or authorized web/pack shot/logo when no usable local
-   file exists — download into `elements/<element-id>/`, keep source copies under
+   file exists — download into `projects/<project>/elements/<element-id>/`, keep source copies under
    `refs/` when useful, and record provenance (source URL, download time,
    SHA-256) in the element manifest and/or `PROVENANCE.md`.
 3. **Promote** the acquired file to the canonical asset name
@@ -51,54 +51,45 @@ explicitly authorized. Unknown or unauthorized brands stay de-identified in
 analysis and may use placeholder descriptors until the user supplies or
 authorizes real identity.
 
-Acquired brand/product assets skip `prompt-review` and the default three-sample
-Seedream set because there is no generation-bound prompt. They still require
-local persistence, hashes, canvas listing, and explicit user selection or
-approval before dependent video use.
+Acquired brand/product assets skip `prompt-review` because there is no
+generation-bound prompt. They still require explicit user selection or
+approval before dependent prompts depend on them.
 
-## Deterministic and hybrid static graphics
+## Exact-graphics boundary
 
-Use `html-graphic-render` when exact words, typography, logo placement, UI,
-price/CTA treatment, safe areas, product order, or repeatable poster geometry
-carry the design. Store the editable HTML entrypoint and its local CSS/SVG
-dependencies beside the versioned PNG and
-record `source: deterministic_render`, `generation: deterministic_html`, local
-input and font hashes, canvas dimensions, background/alpha mode, renderer
-version, and output hash. Validate the record against the
-[render-record schema](../skills/html-graphic-render/references/render-record.schema.json).
+Exact copy, typography, logo placement, UI, price/CTA treatment, safe areas,
+product order, and repeatable poster geometry are **out of scope in this
+workspace**: deterministic HTML-entrypoint graphics are not a capability here.
+Treat such elements as out of scope instead of improvising a prompt, and do not
+ask the model to render them.
 
 Use Seedream for synthesized photography, characters, locations, illustration,
-materials, or expressive textures. For a hybrid, approve the generated or
-acquired text-free image first, bind its current hash as an input, and add all
-exact copy and graphic geometry deterministically. The upstream generated layer
-keeps its prompt/review/task evidence; the deterministic output keeps its render
-record.
-
-Deterministic graphics skip prompt-review, provider registration, and the
-three-sample image default. They still require exact-copy, font, overflow,
-dimension, alpha, thumbnail-legibility, canvas, provenance, and explicit
-selection checks. If both a white-background model reference and transparent
-delivery cutout are needed, create and label separate files. Never globally
-remove white from a product image when that would erase labels, highlights, or
-internal white details.
+materials, or expressive textures. If a deliverable needs a generated base
+beneath exact copy and graphic geometry, the selected text-free image is the
+prompt deliverable and deterministic finishing happens outside this workspace;
+the generated layer keeps its prompt and review evidence here. If both a
+white-background model reference and transparent delivery cutout are needed,
+author and label them as separate prompts. Never globally remove white from a
+product image when that would erase labels, highlights, or internal white
+details.
 
 ## Reference footage and brand-ad inspiration
 
 When the brief cites a real brand video ad or other footage for visual or motion
 inspiration (as distinct from locking a logo/packshot still):
 
-1. **Prefer a direct public HTTPS URL** that `seed_understand` can consume as a
-   video input without downloading.
-2. **Download then upload** only when the cited link is a page/platform URL
-   (for example YouTube, TikTok, Instagram), auth-gated, expired, or otherwise
-   rejected as a video input — persist under the project's pin/reference path,
-   then `media_upload` / `media_presign` for analysis.
+1. **Obtain a watchable copy.** Ask the user for a local file, or a direct link
+   the user can open. This workspace does not upload media.
+2. **Analyze in one of two modes.** Run an **agent video pass** when the client
+   can watch the video; otherwise extract frames locally (`ffmpeg`/`ffprobe`)
+   and read them as images — the normal case. Never claim to have watched
+   footage you could not access; sampled motion and audio stay inferences.
 3. **Do not treat transcripts, scripts, or marketing write-ups as the
    reference.** They may supplement dialogue or claims after the video is
    inspected, but they do not establish shot grammar, motion, or composition.
 4. **Route** full reverse-engineering (breakdown → recipe → optional remake)
    through `template-factory`; a lighter “what is this ad doing visually?” pass
-   may use `seed_understand` alone inside the active production run.
+   uses the same two analysis modes.
 
 Inspiration footage is analysis/reference media, not automatic canon. Brand
 still acquisition above still governs logos and packshots used as locked

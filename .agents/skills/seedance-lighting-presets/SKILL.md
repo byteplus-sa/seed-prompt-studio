@@ -168,8 +168,9 @@ in the `Lighting:` section only — never in `Style:` or `Subject:`.
   approximates the setup; validate every shot and run an A/B with the same
   seed before locking a look. Never promise exact light physics.
 - **Relight is not available prompt-side.** Changing lighting on an
-  already-generated image or video requires regeneration, or a `seedream-edit`
-  image edit. There is no prompt-side relight toggle.
+  already-generated image or video requires regenerating from a revised
+  prompt. There is no prompt-side relight toggle; local image-edit tools are
+  out of scope in this workspace.
 - **Match the preset to scene intent.** A mismatched preset has a visible
   cost: **Overhead Fall on a romantic field scene kills the warmth**; **Soft
   Cross adds a hidden off-camera source that destroys a candlelit Practicals

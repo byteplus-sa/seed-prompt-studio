@@ -25,8 +25,8 @@ spec. The console has two layers that work in sequence:
    observable physical cues at three intensity levels. The six-emotion bank is
    a lookup table for encoding, not a menu to pick from.
 
-This skill is **prompt-composition only**. It never calls MCP/Ark generation
-tools directly; it composes with `seedance-prompt-25` (prompt grammar) and
+This skill is **prompt-composition only**. It never calls any tools directly;
+it composes with `seedance-prompt-25` (prompt grammar) and
 optionally with `seed-audio-prompt` (Seed Audio voice profiles).
 
 ---
@@ -378,7 +378,7 @@ duration, trim the audio prompt (shorter ambience tails, fewer pauses, tighter
 scene descriptions) and regenerate. Never pad the video to fit an over-long
 audio.
 
-After generating the audio, inspect it (or transcribe with `speech_to_text`)
+After generating the audio, inspect it (or check it against the user's transcript)
 and set the shot timestamps so each line lands at the second it actually occurs.
 
 Record the audio asset path, SHA-256, verified duration, and the

@@ -11,15 +11,10 @@ The agent never calls a generation API, uploads media, or writes production file
 
 | This repo **is** | This repo **is not** |
 |---|---|
-| Prompt composition skills for Seed-family models | A generation pipeline — no MCP server, no Ark CLI |
-| A review gate (`prompt-review`) for every generation-bound prompt | A renderer — no HTML/CSS/SVG, no HyperFrames |
-| Chat-first delivery of paste-ready prompt blocks | A 3D or assembly tool — no Blender, no FFmpeg |
-| Optional local prompt drafts under `projects/` | A production canvas — no `showcase.json`, no task registry |
-
-For the full generation pipeline, use the partner workspace
-[`byteplus-sa/ark-director`](https://github.com/byteplus-sa/ark-director),
-which pairs these same skills with the
-[`byteplus-sa/ark-mcp`](https://github.com/byteplus-sa/ark-mcp) server.
+| Prompt composition skills for Seed-family models | A generation pipeline — you generate by pasting the delivered prompts into the destination UI |
+| A review gate (`prompt-review`) for every generation-bound prompt | A renderer — static and motion graphics are out of scope |
+| Chat-first delivery of paste-ready prompt blocks | A 3D or assembly tool — 3D, compositing, and editing are out of scope |
+| Optional local prompt drafts under `projects/` | A production canvas — no stage machinery, no task registry |
 
 ## How it works
 
@@ -54,7 +49,7 @@ flowchart LR
 | **seedance-acting-console** | Turn playable motives and tactics into observable acting cues appropriate to framing, visibility and intensity. |
 | **seedance-animation-styles** | Write Seedance animation prompts for claymation, needle felt, wood puppets, toy miniatures, rubber hose, painterly 2D, cubist ink, stylized 3D, silicone creatures, and wax crayon. |
 | **seedance-camera-presets** | Turn a named camera move (dolly, pan, orbit, crane, tracking, handheld, FPV, aerial, bullet time, dolly zoom, whip pan, one-take, static) into a drop-in Camera block. |
-| **seedance-graybox-world** | Write Seedance prompts for the untextured gray graybox/blockout look when gray IS the desired final style, not just a previs reference. |
+| **seedance-graybox-world** | Write Seedance edit prompts for Blender-rendered videos (playblasts, graybox/previz, finished renders); change appearance while preserving Blender's motion, camera, and timing. |
 | **seedance-lens-presets** | Translate a lens, focal length, aperture, or sensor request into a canonical visible-result phrase for Seedance prompts or Seedream style. |
 | **seedance-lighting-presets** | Translate a named lighting setup into a canonical Seedream `Lighting:` recipe and a matching Seedance visual-style lighting phrase. |
 | **seedance-pacing-presets** | Turn a named pacing preset (speed ramp, slow motion, bullet time, montage, cut rhythm, impact moment) into a timestamped motion, cut, and pacing block. |
@@ -66,6 +61,7 @@ flowchart LR
 | **seedream-character-sheet** | Write structured Seedream prompts for three-panel character sheets and identity references — the face anchors Seedance uses. |
 | **seedream-location-asset** | Write structured Seedream prompts for cinematic location assets and reusable environment sheets. |
 | **seed-audio-prompt** | Write structured Seed Audio 1.0 prompts for full-soundscape audio generation including dialogue, music, SFX, and ambience. |
+| **seed-audio-commercial** | Compose dramatic, story-driven audio commercial prompts with a five-act arc, multi-character voice profiles, and commercial SFX/music patterns. |
 | **ugc-ad-modes** | Write hooks, scripts and Seedance prompts for nine ad modes using supplied product facts, audience objections, supported claims and accurate CTAs. |
 | **ugc-motion-presets** | Turn a named UGC motion preset (Atomic, Outfit Switch, Eating Zoom, Yacht, ...) into a canonical Seedance prompt block with reference bindings, duration, and constraint flags. |
 | **color-grade-palettes** | Map a named color grade palette or film look into a canonical grade sentence for the Seedance Visual Style slot or the Seedream `Style:` section. |
@@ -88,9 +84,9 @@ seed-prompt-studio/
 ├── AGENTS.md                       # workspace contract for agents
 ├── .agents/
 │   ├── contracts/                  # prompt-only policy, axes, descriptors, rule IDs
-│   └── skills/                     # 26 prompt-composition skills
+│   └── skills/                     # 27 prompt-composition skills
 ├── .opencode/command/
-│   └── sync-skills.md              # /sync-skills — pull skill updates from ark-director
+│   └── sync-skills.md              # /sync-skills — pull skill updates from the upstream source
 └── projects/                       # local drafts (save-on-request; never a default Git staging target)
     └── <project-name>/
         ├── project.md              # optional brief
@@ -99,15 +95,10 @@ seed-prompt-studio/
 
 ## Maintenance
 
-The full pipeline in
-[`byteplus-sa/ark-director`](https://github.com/byteplus-sa/ark-director) is the
-source of truth for the shared skills. Run `/sync-skills` inside opencode to
-mirror the 25 allowlisted skill bundles and their referenced contracts into
-this repo; the local `template-factory` fork is never overwritten. The command
-reports changes and leaves them uncommitted for review. A scoped run —
-`/sync-skills seedance-prompt-25` — syncs one skill and skips the contracts.
-
-## Related repositories
-
-- [`byteplus-sa/ark-director`](https://github.com/byteplus-sa/ark-director) — full production workspace: MCP + Ark CLI generation, deterministic HTML graphics, HyperFrames, Blender, assembly, and the production canvas.
-- [`byteplus-sa/ark-mcp`](https://github.com/byteplus-sa/ark-mcp) — Model Context Protocol server for BytePlus ModelArk generation tools.
+Shared skills are maintained in an upstream source checkout. Run `/sync-skills`
+inside opencode to mirror the 25 allowlisted skill bundles into this repo; the
+local `template-factory` fork and all contracts are locally maintained and are
+never overwritten by a sync. The command reports changes and leaves them
+uncommitted for review. A scoped run — `/sync-skills seedance-prompt-25` —
+syncs one skill only. The sync source defaults to a sibling checkout at
+`../ark-director` and can be relocated with `SKILLS_SOURCE`.

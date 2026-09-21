@@ -18,8 +18,9 @@ mode selection and caller responsibilities.
 
 ### Model identity
 - Model ID: `seed-audio-1.0`
-- Endpoint: `POST <base>/api/v3/tts/create`, where `<base>` is resolved from env (`BYTEPLUS_SEED_AUDIO_BASE_URL`); the example below is for orientation only and must not be hard-coded.
-- Auth: `X-Api-Key` header (required). Optional: `X-Api-Request-Id` (client-generated UUID for tracing).
+- Orientation only: this workspace makes no calls. The upstream request shape
+  (`POST /api/v3/tts/create`) is documented below so the prompt and parameter
+  block match what the destination UI submits.
 - Output: non-streaming HTTP only.
 
 ### Request body
@@ -67,7 +68,7 @@ mode selection and caller responsibilities.
 | `aigc_watermark` | bool | Explicit rhythm marker appended to end of audio. Default `false`. |
 | `aigc_metadata` | object | Implicit header metadata. Sub-fields: `enable` (bool), `content_producer`, `produce_id`, `content_propagator`, `propagate_id`. Default disabled. |
 
-Note: the MCP tool `seed_audio_generate` exposes these as `watermark.enable` and
+Note: some client wrappers expose these as `watermark.enable` and
 `watermark.metadata`; the `aigc_watermark` / `aigc_metadata` names above are the
 raw REST API fields.
 

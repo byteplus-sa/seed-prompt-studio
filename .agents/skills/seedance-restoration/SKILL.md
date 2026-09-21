@@ -27,10 +27,11 @@ Use this skill when the user wants to:
   scratches, hairlines, streaks from aged film prints
 - **clean up** dust, dirt, flicker, and compression artifacts
 
-Do **not** use for deterministic VOD AI enhancement (`vod_enhance_video`) or
-FFmpeg denoisers — this skill is the Seedance generative-edit route. For the
+Do **not** use for deterministic VOD AI enhancement or classical denoiser
+filters — this skill is the Seedance generative-edit route. For the
 general edit grammar and the full six-part formula, compose with
-`seedance-prompt-25`; for the submission lifecycle, use the `ark-mcp` tools.
+`seedance-prompt-25`; submission and the generation lifecycle belong to the
+caller outside this workspace.
 
 > **Known ceiling.** Seedance re-renders the picture; aggressive cleanup trades
 > fine-detail fidelity for smoothness, and there is a real limit to how far a
@@ -39,8 +40,8 @@ general edit grammar and the full six-part formula, compose with
 > a wave/ripple, a bright band) are the hardest case — even with correct
 > vocabulary they can be reproduced as "content" rather than erased. If residual
 > grain or lines remain after escalation, surface the deterministic alternative
-> (temporal denoiser + scratch-removal filters in FFmpeg) rather than promising
-> a generative fix.
+> (temporal denoise + scratch-removal filters, run outside this workspace)
+> rather than promising a generative fix.
 
 ## Input and output contract
 
@@ -51,11 +52,14 @@ Output: a Seedance 2.5 structured-edit prompt with the source bound as `@Video 1
 
 ## Procedure
 
-1. **Diagnose the defect first — never guess the vocabulary.** Upload the damaged
-   clip and ask `seed_understand` to characterize the artifact precisely: its
-   exact type (grain, scratch line, dust, flicker, a horizontal scan-line tear, a
-   rolling wave/ripple, a geometric warp, a luminance band), its direction of
-   travel, its timing window, and whether it displaces the image or only changes
+1. **Diagnose the defect first — never guess the vocabulary.** Get eyes on the
+   damaged clip: run an agent video pass when your client can watch the video,
+   otherwise extract frames locally (`ffprobe` for duration and fps; `ffmpeg`
+   for per-shot frames and short dense bursts across the defect window) and read
+   them as images. Characterize the artifact precisely: its exact type (grain,
+   scratch line, dust, flicker, a horizontal scan-line tear, a rolling
+   wave/ripple, a geometric warp, a luminance band), its direction of travel,
+   its timing window, and whether it displaces the image or only changes
    brightness. Misnaming the defect is the single biggest cause of under-fixes —
    a "vertical wave" that is actually a horizontal scan-line tear + luminance
    band will not respond to a wave-removal prompt. Use the diagnosis to drive the
@@ -63,7 +67,7 @@ Output: a Seedance 2.5 structured-edit prompt with the source bound as `@Video 1
 2. **Inspect the source.** Probe duration, fps, resolution, and aspect. Read the
    defect mix from the footage and the diagnosis.
 3. **Trim to the 30s ceiling — and center the defect.** Seedance 2.5 caps edits
-   at 30s. If the source is longer, trim to ≤29s before upload; the edit
+   at 30s. If the source is longer, trim to ≤29s before handoff; the edit
    auto-locks duration to ~input (±0.3s). **For a localized defect, never leave
    it at a clip boundary.** A defect sitting in the final second can be dropped
    or altered by the duration drift (and re-introduced by any last-frame pad you
@@ -74,14 +78,16 @@ Output: a Seedance 2.5 structured-edit prompt with the source bound as `@Video 1
 5. **Write the prompt** using the canonical template. Make the dominant defect
    explicit and dominant; never bury it in a mixed list.
 6. **Run `prompt-review`** against the Seedance 2.5 edit checklist before
-   submission.
-7. **Verify the fix before splicing — do not trust the task.** Re-run
-   `seed_understand` on the Seedance output and check the same three things: the
-   defect is gone, the people/scene/camera are intact, and no new artifacts were
-   introduced. Only splice a verified-clean clip; a technical `succeeded` is not
-   proof the tear/wave/grain actually left.
-8. **Re-mux original audio** afterward. Seedance regenerates native audio; for
-   "keep everything the same," mux the source audio back onto the restored video.
+   handoff.
+7. **Verify the fix before relying on it — do not trust a reported success.**
+   Ask the user to share the generated clip (or frames from it) and re-inspect
+   it the same way (video pass, or extracted frames); check the
+   same three things: the defect is gone, the people/scene/camera are intact, and
+   no new artifacts were introduced. Only build on a verified-clean clip; a
+   reported `succeeded` is not proof the tear/wave/grain actually left.
+8. **Original audio re-mux** happens in the destination workflow. Seedance
+   regenerates native audio; for "keep everything the same," the user muxes the
+   source audio back onto the restored video outside this workspace.
 
 ## Escalation ladder
 
@@ -110,22 +116,22 @@ frame. They need different vocabulary and a different mental model:
   it to redraw the band cleanly. This is the single most effective phrasing for
   this class.
 - **Name it precisely.** A scan-line tear is not a "wave" and not a "geometric
-  warp" — wrong vocabulary produces a partial fix. Confirm the exact type with
-  `seed_understand` first (see Procedure step 1).
+  warp" — wrong vocabulary produces a partial fix. Confirm the exact type from a
+  frame pass first (see Procedure step 1).
 - **Do not hedge.** For these defects, "aggressively remove" + "completely
   eliminate … through the final frame" is appropriate; the timid "keep everything
   the same" framing lets the model reproduce the band as content.
 - **Center the defect in the clip.** These defects are often a ~1s window; put it
   mid-clip, not at the tail (Procedure step 3).
 - **Expect the model to sometimes reproduce them.** A rolling tear is the hardest
-  restoration case. Verify with `seed_understand` before splicing; if it persists
+  restoration case. Verify by re-inspection before splicing; if it persists
   after 2–3 attempts with correct vocabulary, fall back to a deterministic
   temporal repair (motion-compensated interpolation / temporal median over the
   affected frames), which can rebuild the band from neighboring clean scan lines.
 
 ### Template (scan-line tear / rolling band)
 
-Submit with `omni_reference_task_type="edit"`, `generate_audio: false`, `resolution` 1080p.
+Deliver with the parameter block: `omni_reference_task_type="edit"`, `generate_audio: false`, `resolution` 1080p.
 
 ```text
 [Edit Goal]
@@ -155,7 +161,7 @@ duplicated copy.
 
 ## Canonical prompt template (Seedance 2.5 edit)
 
-Submit with `omni_reference_task_type="edit"`, `generate_audio: false`, `resolution` 1080p.
+Deliver with the parameter block: `omni_reference_task_type="edit"`, `generate_audio: false`, `resolution` 1080p.
 
 ```text
 [Edit Goal]
@@ -223,8 +229,8 @@ direction.
 
 ## Self-check checklist
 
-1. The defect was **diagnosed with `seed_understand`** before writing the prompt;
-   the prompt uses the diagnosis's exact vocabulary (not a guessed name).
+1. The defect was **diagnosed from a video or frame pass** before writing the
+   prompt; the prompt uses the diagnosis's exact vocabulary (not a guessed name).
 2. `[Edit Goal]` is one sentence, begins "Edit @Video 1 to …", and names the
    dominant defect explicitly.
 3. `[Source Video Role]` declares `@Video 1` the sole editing master.
@@ -239,6 +245,6 @@ direction.
 9. No `[Target Material Role]` section (single `@Video 1` source only).
 10. Source trimmed to ≤29s, and any localized defect is **centered** with ≥1s
     clean margin on both sides — never at the clip boundary.
-11. The Seedance output was **verified with `seed_understand`** (defect gone,
-    content intact, no new artifacts) before splicing.
-12. Prompt-review gate passed before submission; original audio re-muxed after.
+11. The Seedance output was **verified by re-inspection** (defect gone, content
+    intact, no new artifacts) before splicing.
+12. Prompt-review gate passed before handoff; original audio re-mux happens in the destination workflow.
