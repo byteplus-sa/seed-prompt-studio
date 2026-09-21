@@ -62,8 +62,9 @@ Do not assert that a reference has correct pronunciation until it was checked.
 1. Keep exact dialogue identical in audio and video prompts.
 2. Ensure actual audio duration fits the planned video and speaking window.
 3. Use measured dialogue timestamps only where shot alignment needs them.
-4. Pass the supported audio file as the ordered `reference_audio` binding.
-5. Record local path, SHA-256, duration, reference selection, and any mapping.
+4. Have the user supply the generated audio as the ordered `reference_audio`
+   binding (`@Audio 1`).
+5. Record the user-reported duration and reference selection, plus any mapping.
 6. Review generated lip motion and sound continuity; a correct audio track does
    not establish correct video alignment.
 

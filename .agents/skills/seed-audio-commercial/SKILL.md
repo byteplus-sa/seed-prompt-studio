@@ -59,7 +59,9 @@ A paste-ready commercial soundscape prompt with:
 - Dramatic story arc (setup → conflict → resolution → brand tagline)
 - Music that shifts with the emotional beats of the story
 - Chronologically interleaved SFX and ambience transitions
-- The parameter block (format, sample rate, subtitle options) beside the prompt
+- The parameter block beside the prompt: `format: mp3`, `sample_rate: 24000`
+  (subtitle output is a destination-UI option; enable it there if a
+  transcript is wanted)
 
 ## When to use this skill
 
@@ -188,7 +190,7 @@ Check these constraints before delivering the prompt:
 |---|---|---|
 | Prompt length | 3,000 characters | Trim redundant descriptions, shorten stage directions |
 | Target duration | 120 seconds max per generation | Split into multiple prompts and chain via TA2A |
-| Output format | MP3 at 24000 Hz recommended | WAV at 44100 Hz can exceed artifact size limits in some destinations |
+| Output format | MP3 at 24000 Hz recommended | WAV at 44100 Hz can exceed upload size limits in some destinations |
 | Non-English dialogue | Content safety filter may reject | See [Multilingual and Taglish guidance](#multilingual-and-taglish-guidance) |
 | Reference audio | Not needed for T2A | Omit audio references and all `<<TGT_SPKN>>` tags |
 
@@ -199,8 +201,8 @@ commercials; it keeps file sizes small for the destination workflow.
 
 Run `prompt-review` on the exact prompt and parameter block; resolve
 CRITICAL/MAJOR findings and re-review changed prompts. Then deliver the
-paste-ready block in chat: the prompt, the parameter block (format, sample
-rate, subtitle options), and the story-arc summary (one line per act). Save a
+paste-ready block in chat: the prompt, the parameter block (`format: mp3`,
+`sample_rate: 24000`), and the story-arc summary (one line per act). Save a
 draft under `projects/<project>/prompts/` only on explicit request.
 
 ## Multilingual and Taglish guidance

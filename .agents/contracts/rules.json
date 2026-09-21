@@ -48,7 +48,7 @@
         "preflight"
       ],
       "owner_path": ".agents/contracts/production-policy.md",
-      "summary": "Unknown or existing submissions reconcile rather than resubmit.",
+      "summary": "An ambiguous destination-UI outcome is reconciled with the user rather than re-pasted unchanged.",
       "exceptions": []
     },
     {

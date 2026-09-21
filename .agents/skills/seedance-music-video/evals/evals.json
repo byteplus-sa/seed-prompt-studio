@@ -67,14 +67,14 @@
     {
       "id": 6,
       "prompt": "Write a 20-second Seedance prompt for a music video where the singer's vocals must be lip-synced to an existing original track. The user wants the mouth to match the voice exactly and the audio to drive the pacing.",
-      "expected_output": "An audio-first music-video prompt that binds the track as the timing authority and matches the performer's mouth to the voice.",
+      "expected_output": "A black-sync music-video prompt: the user-prepared pure-black timing container is bound as @Video 1 with native audio on, and lyric coverage is verified against the track.",
       "files": [],
       "expectations": [
-        "The prompt uses the audio-first contract: the track is bound as @Audio N and stated as the exact soundtrack and timing authority.",
-        "The prompt directs the performer's visible mouth to match only their voice in the referenced audio.",
+        "The prompt uses the black-sync contract: the user-prepared black container is bound as @Video 1 and stated as the exact soundtrack and timing authority.",
+        "The prompt sets generate_audio: true so the model re-performs the vocals over the timing reference.",
+        "The re-performance caveat is stated: the model's vocals approximate, not clone, the original track.",
         "The exact sung lines are kept in {curly braces} and are not paraphrased.",
-        "The prompt does not ask the model to add its own music on top of the reference.",
-        "No real artist's song, name, or voice clone is referenced."
+        "No bare @Audio 1 soundtrack binding is used, and no real artist's song, name, or voice clone is referenced."
       ]
     },
     {

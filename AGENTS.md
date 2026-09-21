@@ -72,7 +72,9 @@ This workspace ships prompt-composition skills only. Generation pipelines,
 deterministic-graphics renderers, 3D/animation tooling, and media-processing
 skills are not installed here; do not attempt their workflows. Local
 `ffmpeg`/`ffprobe` are analysis-only — never generation, assembly, or
-transcoding.
+transcoding. Delivered recipes that mention such tools (e.g. a mux step in a
+music-video handoff) are user-side destination-workflow material, not agent
+actions.
 
 Keep skill metadata concise and valid YAML. Move substantial conditional
 modes and examples into focused same-skill references.

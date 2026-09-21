@@ -54,7 +54,8 @@ the three-image sampling default where applicable, and the requested delta.
 - Genre conventions — per-genre visual recipes, vertical-vs-landscape norms.
 - **Field-tested learnings from `mv-bryce-vine` (2026-08-20):** the timestamped
   lyric timeline technique (section 3b), native audio re-performance behavior
-  (section 3a), hybrid audio mode (section 3), and ASR-based lyric
+  (section 3a), the black-sync timing-reference carrier (section 3, take t04),
+  and ASR-based lyric
   verification (section 3c) were derived from three generation takes where
   large `{...}` blocks caused lyric dropouts.
 - **Field-tested black-sync follow-up (t04 vs t03 baseline):** carrying the
@@ -226,7 +227,9 @@ master onto the approved visuals in the destination workflow. The timestamped
 lyric timeline (section 3b) stays mandatory for dense vocals.
 
 **No bare-audio route.** In master-locked mode the song always reaches Seedance
-inside the black-sync container — never as a standalone `@Audio 1` file. If the
+inside the black-sync container — never as a standalone `@Audio 1` file. This
+ban is scoped to song masters: dialogue-track lip-sync bindings taught by
+`seedance-prompt-25` and `seedance-prompt-25-filipino` are unaffected. If the
 user cannot run the mux, hand them the recipe above first (any basic editor
 works); write the prompt only once the container exists. The timestamped lyric
 timeline (section 3b) and verification (section 3c) apply unchanged.

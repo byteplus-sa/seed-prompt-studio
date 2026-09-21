@@ -8,10 +8,11 @@ mode selection and caller responsibilities.
 
 ## Full example: Jollibee Chickenjoy (Taglish)
 
-This is the verified, production-grade prompt that generated a 110.6-second
-dramatic commercial in T2A mode. Use it as a reference for structure, length,
-and density. Both examples are illustrative; substitute the user's authorized
-brand, product facts, cast, and language before reusing the structure.
+This is a production-grade prompt previously generated and verified upstream in
+T2A mode (110.6-second dramatic commercial). Use it as a reference for
+structure, length, and density. Both examples are illustrative; substitute the
+user's authorized brand, product facts, cast, and language before reusing the
+structure.
 
 ```text
 Scene and atmosphere
@@ -72,8 +73,7 @@ Ending
 The guitar and percussion hold a warm sustained chord. Store ambience fades. A final soft rain — gentler now — and silence.
 ```
 
-**Result**: 110.64 seconds, MP3, 24kHz stereo, 64 kbps, 885 KB. Full decode
-check passed. SHA-256 verified.
+**Result**: 110.64 seconds, MP3, 24kHz stereo, 64 kbps, 885 KB.
 
 ## Full example: Lola Maria's Ube Halaya (Taglish, 30s spot)
 
